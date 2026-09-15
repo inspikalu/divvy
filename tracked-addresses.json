@@ -1,0 +1,11 @@
+{
+  "network": "devnet",
+  "meteoraDbcProgramId": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+  "dividendMint": "A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM",
+  "deployerTokenAccount": "CrH2m8tHwZQX6Yfp7y5reaYc3yKaDHx8trDDMNgUoMBW",
+  "wallets": {
+    "deployer": "BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34",
+    "holderA": "6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm",
+    "holderB": "DcG8Jv9ZszLDwhYsMKFAKeGv7BNfyaYybMGL34o6GM8r"
+  }
+}
