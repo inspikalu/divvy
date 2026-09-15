@@ -1,24 +1,24 @@
 # Validation: Phase 0 — Environment & Ground Truth
 
 ## Acceptance Criteria
-- [ ] **Toolchain Verified**: Anchor CLI is set to `0.30.1`, `spl-token-cli` is executable, and tool versions match `tech-stack.md`.
-- [ ] **Meteora DBC Devnet Verified**: Account `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN` is verified executable on Solana devnet, and `@meteora-ag/dynamic-bonding-curve-sdk` `1.5.12` is recorded in `specs/tech-stack.md`.
-- [ ] **Keypairs Generated & Isolated**: Three keypairs (`keys/deployer.json`, `keys/holder-a.json`, `keys/holder-b.json`) exist in `keys/` and `git check-ignore` confirms none will be tracked by git.
-- [ ] **Wallets Funded on Devnet**: All three wallets have positive devnet SOL balances confirmed on-chain (`solana balance <PUBKEY> --url devnet > 0`).
-- [ ] **Dividend Asset Mint Created**: A classic SPL token mint exists on devnet with 6 decimals, and deployer's ATA has an initial supply of 1,000,000 tokens (`spl-token supply <MINT> --url devnet` returns `1000000`).
-- [ ] **Tracked Addresses Centralized**: `tracked-addresses.json` contains valid base58 addresses for all wallets, the dividend mint, and the DBC program ID.
-- [ ] **Repository Initialized**: Git repo initialized with `.gitignore`, `.env.example`, `tracked-addresses.json`, and specs staged and committed cleanly with zero private key leakage.
+- [x] **Toolchain Verified**: Anchor CLI is set to `0.32.1`, `spl-token-cli` is `5.5.0`, and tool versions match `tech-stack.md`.
+- [x] **Meteora DBC Devnet Verified**: Account `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN` is verified executable on Solana devnet, and `@meteora-ag/dynamic-bonding-curve-sdk` `1.5.12` is recorded in `specs/tech-stack.md`.
+- [x] **Keypairs Generated & Isolated**: Three keypairs (`keys/deployer.json`, `keys/holder-a.json`, `keys/holder-b.json`) exist in `keys/` and `git check-ignore` confirms none will be tracked by git.
+- [x] **Wallets Funded on Devnet**: All three wallets have positive devnet SOL balances confirmed on-chain (`deployer`: 2.5 SOL, `holderA`: 1.5 SOL, `holderB`: 1.5 SOL).
+- [x] **Dividend Asset Mint Created**: A classic SPL token mint exists on devnet (`A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM`) with 6 decimals, and deployer's ATA has an initial supply of 1,000,000 tokens (`spl-token supply` returns `1000000`).
+- [x] **Tracked Addresses Centralized**: `tracked-addresses.json` contains valid base58 addresses for all wallets, the dividend mint, and the DBC program ID.
+- [x] **Repository Initialized**: Git repo initialized with `.gitignore`, `.env.example`, `tracked-addresses.json`, and specs staged and committed cleanly with zero private key leakage.
 
 ## Merge Gate
-- [ ] All Group verifies in `plan.md` pass (with pasted evidence, not paraphrase).
-- [ ] Phase integrates without breaking prior phases (Phase 0 baseline).
-- [ ] Lint / format clean — run `git status` to verify working tree is clean and no untracked secret files remain exposed.
-- [ ] No mocks/stubs/placeholder logic outside what `engineering-standards.md` explicitly permits (the SPL mint is a real devnet mint).
-- [ ] No debug statements or leaked private keys left in tracked code.
-- [ ] Installed dependency versions match `tech-stack.md`'s pinned versions:
-  - Run: `anchor --version` (expect `anchor-cli 0.30.1`)
-  - Run: `node -v` (expect `v20.` or `v24.`)
-- [ ] Diff summary reviewed:
-  - Run: `git log -1 --stat`
-  - Confirm the changed-file list matches what is claimed in the execution report.
-- [ ] Demo-able: On Solana Explorer (`https://explorer.solana.com/?cluster=devnet`), the Dividend Mint account, Deployer account, and Holder accounts are all viewable with real devnet balances.
+- [x] All Group verifies in `plan.md` pass (with pasted evidence, not paraphrase).
+- [x] Phase integrates without breaking prior phases (Phase 0 baseline).
+- [x] Lint / format clean — `git status` shows clean working tree with zero untracked secrets.
+- [x] No mocks/stubs/placeholder logic outside what `engineering-standards.md` explicitly permits (the SPL mint is a real devnet mint).
+- [x] No debug statements or leaked private keys left in tracked code.
+- [x] Installed dependency versions match `tech-stack.md`'s pinned versions:
+  - Run: `anchor --version` → `anchor-cli 0.32.1`
+  - Run: `node -v` → `v24.14.0`
+- [x] Diff summary reviewed:
+  - Run: `git log -1 --stat` → 11 files changed, 734 insertions(+).
+  - Confirmed changed-file list matches what is claimed in the execution report.
+- [x] Demo-able: On Solana Explorer (`https://explorer.solana.com/?cluster=devnet`), the Dividend Mint account (`A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM`), Deployer account (`BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`), and Holder accounts are all viewable with real devnet balances.
