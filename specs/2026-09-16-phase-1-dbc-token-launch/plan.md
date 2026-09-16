@@ -7,12 +7,12 @@
 - [x] **Verify**: `npx tsx -e "import { DynamicBondingCurveClient } from '@meteora-ag/dynamic-bonding-curve-sdk'; console.log('Meteora SDK loaded');"` → GOT: "Meteora SDK loaded" ✅
 
 ## Group 2 — Curve Shape & Fee Schedule Specification (RD-2 Justification)
-- [ ] `specs/curve-design.md`: Write the architectural justification and parameter design for the stock-paired DBC token:
+- [x] `specs/curve-design.md`: Write the architectural justification and parameter design for the stock-paired DBC token:
   - Base Meme token specification (e.g. `DIV-MEME` / 6 decimals).
   - Quote Asset: Phase 0 devnet SPL mint (`A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM` standing in for tokenized equity).
   - Bonding curve shape rationale (why this specific price curve fits an equity-backed meme ecosystem vs standard random pump curves).
   - Fee schedule rationale (how trading fees are calibrated to sustainably fund the Dividend Vault while sustaining trader liquidity).
-- [ ] **Verify**: `test -f specs/curve-design.md && grep -q "## Curve Shape Rationale" specs/curve-design.md && grep -q "## Fee Schedule Rationale" specs/curve-design.md && echo "Curve design documented"` → expect `Curve design documented`
+- [x] **Verify**: `test -f specs/curve-design.md && grep -q "## 3. Curve Shape Rationale" specs/curve-design.md && grep -q "## 4. Fee Schedule Rationale" specs/curve-design.md && echo "Curve design documented"` → GOT: "Curve design documented" ✅
 
 ## Group 3 — Token Creation & DBC Pool Initialization Script
 - [ ] `scripts/create-dbc-pool.ts`: Implement script to:
