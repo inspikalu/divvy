@@ -23,11 +23,11 @@
 - [x] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → GOT: `Last Deployed In Slot: 499782252` (> 499752879), `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`, `Data Length: 253248 bytes` ✅
 
 ## Group 4 — Integration Test for `route_fees` (`tests/`)
-- [ ] `tests/divvy-routing.ts`: TypeScript integration test suite against a local validator using `npx tsx tests/divvy-routing.ts`:
+- [x] `tests/divvy-routing.ts`: TypeScript integration test suite against a local validator using `npx tsx tests/divvy-routing.ts`:
   - **Test 1 (Happy path)**: initialize config (or reuse existing PDA derivation), mint `amount_in` dividend tokens to creator ATA, call `route_fees(amount_in)`, assert `dividend_vault` balance = `amount_in * 6000 / 10000` and `config.total_routed_dividends` equals same value.
   - **Test 2 (Authority guard)**: call `route_fees` with a non-authority signer → expect `AnchorError: A has_one constraint was violated` or equivalent anchor constraint error.
   - **Test 3 (Insufficient balance)**: call `route_fees` with `amount_in` exceeding creator_token_account balance → expect token program error (transfer fails).
-- [ ] **Verify**: `npx tsx tests/divvy-routing.ts` → expect `"Test Results: 3 passing, 0 failed"`.
+- [x] **Verify**: `npx tsx tests/divvy-routing.ts` → GOT: "Test Results: 3 passing, 0 failed" ✅
 
 ## Group 5 — Fee Claim Script (DBC → Creator Wallet)
 - [ ] `scripts/claim-dbc-fees.ts`: Script to claim accrued DBC creator trading fees into the deployer's dividend-mint token account:
