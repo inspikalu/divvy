@@ -83,7 +83,7 @@ Nothing gets added to the stack silently.
 
 ## Known Issues
 
-*No entries yet.*
+- [2026-09-16] Phase 1/Group 3: `@meteora-ag/dynamic-bonding-curve-sdk@1.5.12` — `TokenDecimal` enum uses uppercase keys (`SIX`, `SEVEN`, `EIGHT`, `NINE`), not camelCase (`Six`, `Seven`). In `buildCurve`, `poolCreationFee` is denominated in SOL (not lamports); passing `0.001` converts to `1_000_000` lamports (`MIN_POOL_CREATION_FEE`). Passing `0` causes `DecimalError` in `convertToLamports`. When using `BaseFeeMode.FeeSchedulerLinear` with a flat fee schedule, `numberOfPeriod` and `totalDuration` must BOTH be 0, otherwise the SDK throws a validation error.
 
 Real gotchas discovered while researching a pinned library or version mid-build go here
 — a documented bug, a deprecated method, a non-obvious config requirement. These are

@@ -7,5 +7,42 @@
     "deployer": "BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34",
     "holderA": "6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm",
     "holderB": "DcG8Jv9ZszLDwhYsMKFAKeGv7BNfyaYybMGL34o6GM8r"
+  },
+  "configAddress": "H58aeXhEc91vRDTkHo5sGHr7398zbBox2YfuBvckxPHk",
+  "baseMint": "3pX9emk345wevCj8wYuDHPnhtEV5NKuFwSbUCCuQFgP4",
+  "poolAddress": "Erzp6EhMbcsMwNxkLg4USt7K2GJ22rYZfd4rmVoLzz6X",
+  "baseVault": "9hTxxDnu6aN3nWEWgxqmT5Sm8S884Ej3r4YaCeHnRjw5",
+  "quoteVault": "2RGTErgHSDuGmg9TRboux81639thXj1634okPdxa5DCt",
+  "poolCreationSignature": "ZgAdZ1Fh4nfjVNTgaeRHA9TMqNJR6C5oYGiwEDuuiaWGexMpkyucKJsjJcr2UyhX2FDZFfYWZwnjvgarLdGasF3",
+  "poolCreationExplorerUrl": "https://explorer.solana.com/tx/ZgAdZ1Fh4nfjVNTgaeRHA9TMqNJR6C5oYGiwEDuuiaWGexMpkyucKJsjJcr2UyhX2FDZFfYWZwnjvgarLdGasF3?cluster=devnet",
+  "swapSignatures": [
+    {
+      "type": "BUY",
+      "trader": "6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm",
+      "signature": "3eSdSRdr55GRLixUsSGAeNSgQ5rCYYv4HRNr8C7s2W3u8P5bys5GkqNsvgyCMF1W9rxUvDUZcqpZ67zc87u8DaaR",
+      "explorerUrl": "https://explorer.solana.com/tx/3eSdSRdr55GRLixUsSGAeNSgQ5rCYYv4HRNr8C7s2W3u8P5bys5GkqNsvgyCMF1W9rxUvDUZcqpZ67zc87u8DaaR?cluster=devnet",
+      "amountIn": "100 Quote Tokens"
+    },
+    {
+      "type": "BUY",
+      "trader": "DcG8Jv9ZszLDwhYsMKFAKeGv7BNfyaYybMGL34o6GM8r",
+      "signature": "3AsZTiitihEBTA2JsKAPTgWmZCUyDuuAmQbHq5sBjQSwLT2BDxqUcsS2mPNZ8jZ5AjethaedaZGACyJtbdMJuCbU",
+      "explorerUrl": "https://explorer.solana.com/tx/3AsZTiitihEBTA2JsKAPTgWmZCUyDuuAmQbHq5sBjQSwLT2BDxqUcsS2mPNZ8jZ5AjethaedaZGACyJtbdMJuCbU?cluster=devnet",
+      "amountIn": "150 Quote Tokens"
+    },
+    {
+      "type": "SELL",
+      "trader": "6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm",
+      "signature": "4mYB7mD46qGKTyFk6q6ZbV9KAmTVfjmRHZDVBWc7zirGLgmC82rbXAtCbf1r2EzVEiGkHQDispLZciU1gTaX9xGc",
+      "explorerUrl": "https://explorer.solana.com/tx/4mYB7mD46qGKTyFk6q6ZbV9KAmTVfjmRHZDVBWc7zirGLgmC82rbXAtCbf1r2EzVEiGkHQDispLZciU1gTaX9xGc?cluster=devnet",
+      "amountIn": "7580191309029 Base Tokens"
+    }
+  ],
+  "accruedFeesSnapshot": {
+    "creatorQuoteFee": "1996812",
+    "partnerQuoteFee": "1331208",
+    "protocolQuoteFee": "832004",
+    "totalQuoteFee": "4160024",
+    "updatedAt": "2026-09-17T06:30:35.685Z"
   }
 }
