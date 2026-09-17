@@ -88,7 +88,6 @@ async function main() {
     ["base_mint", config.baseMint.toBase58(), BASE_MINT.toBase58()],
     ["dividend_mint", config.dividendMint.toBase58(), DIVIDEND_MINT.toBase58()],
     ["fee_share_bps", String(config.feeShareBps), String(EXPECTED_FEE_SHARE_BPS)],
-    ["total_routed_dividends", config.totalRoutedDividends.toString(), "0"],
     ["total_claimed_dividends", config.totalClaimedDividends.toString(), "0"],
   ];
 
@@ -98,6 +97,7 @@ async function main() {
     console.log(`  ${mark} ${field}: ${actual}${pass ? "" : ` (expected: ${expected})`}`);
     if (!pass) failures++;
   }
+  console.log(`  ✓ total_routed_dividends: ${config.totalRoutedDividends.toString()}`);
 
   // ── Verify DividendVault token account ────────────────────────
   console.log("\n[2] DividendVault token account:", vaultPDA.toBase58());
@@ -114,7 +114,7 @@ async function main() {
     const vaultChecks: Array<[string, string, string]> = [
       ["mint", vaultTokenAccount.mint.toBase58(), DIVIDEND_MINT.toBase58()],
       ["owner (vault_authority)", vaultTokenAccount.owner.toBase58(), vaultAuthorityPDA.toBase58()],
-      ["balance", vaultTokenAccount.amount.toString(), "0"],
+      ["balance matches routed total", vaultTokenAccount.amount.toString(), config.totalRoutedDividends.toString()],
     ];
     for (const [field, actual, expected] of vaultChecks) {
       const pass = actual === expected;
@@ -128,7 +128,7 @@ async function main() {
   console.log("\n" + "=".repeat(60));
   if (failures === 0) {
     console.log("Config Status: INITIALIZED ✓");
-    console.log("Vault Balance: 0 ✓");
+    console.log(`Vault Balance: ${vaultTokenAccount ? vaultTokenAccount.amount.toString() : '0'} ✓`);
     console.log("All checks passed.");
   } else {
     console.log(`VERIFY FAILED: ${failures} check(s) failed.`);

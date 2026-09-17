@@ -56,5 +56,9 @@
   "divvyInitConfigExplorerUrl": "https://explorer.solana.com/tx/2NyxR7PuKrEFZwVa9MGWAAgG3S5mpq3XfqYWezymYe7KwwuSR7B2ocYSeny4Mf2GK2ubdeu6PToM93dJGQri6V9C?cluster=devnet",
   "dbcFeeClaimSignature": "5Ao2BwpEESEPYQK3cGqgKrNU1iZWkb3M5ZrrNSt1hhrxePCroN5P9c29zYhuifVDi4HY959RyJ9Wft4ovW5FYEAk",
   "dbcFeeClaimExplorerUrl": "https://explorer.solana.com/tx/5Ao2BwpEESEPYQK3cGqgKrNU1iZWkb3M5ZrrNSt1hhrxePCroN5P9c29zYhuifVDi4HY959RyJ9Wft4ovW5FYEAk?cluster=devnet",
-  "dbcFeeClaimQuoteAmount": "1996812"
+  "dbcFeeClaimQuoteAmount": "1996812",
+  "routeFeesSignature": "qEqE3WNBHr6ZM7BM7jQXAAhSmjVYdzp1ZrwyC568asy73tN78dG272KCGShjeygBTD1TpCsP1TTDb8DA62Byc2V",
+  "routeFeesExplorerUrl": "https://explorer.solana.com/tx/qEqE3WNBHr6ZM7BM7jQXAAhSmjVYdzp1ZrwyC568asy73tN78dG272KCGShjeygBTD1TpCsP1TTDb8DA62Byc2V?cluster=devnet",
+  "vaultBalanceAfterRouting": "1198087",
+  "totalRoutedDividends": "1198087"
 }

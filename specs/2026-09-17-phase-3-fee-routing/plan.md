@@ -40,14 +40,14 @@
 - [x] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34 --url devnet` → GOT: "990000" (> 0) ✅
 
 ## Group 6 — Fee Routing Script (Creator Wallet → DividendVault)
-- [ ] `scripts/route-fees.ts`: Script to call the `route_fees` Anchor instruction on devnet:
+- [x] `scripts/route-fees.ts`: Script to call the `route_fees` Anchor instruction on devnet:
   - Load all addresses from `tracked-addresses.json`.
   - Read the deployer's current dividend-mint token account balance to determine `amount_in`.
   - Call `program.methods.routeFees(new BN(amount_in)).accounts({ authority, config, creatorTokenAccount, dividendVault, vaultAuthority, dividendMint, tokenProgram }).signers([deployerKeypair]).rpc()`.
   - After confirmation, read the `dividend_vault` token account balance and print it.
   - Write `routeFeesSignature`, `routeFeesExplorerUrl`, `vaultBalanceAfterRouting` to `tracked-addresses.json`.
-- [ ] Execute: `npx tsx scripts/route-fees.ts`.
-- [ ] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner GhMLTG5273U2gj1gMC7tjYDPdkDfRY4nsTA8HWwEbyr8 --url devnet` → expect a value **greater than 0**, confirming the vault balance increased.
+- [x] Execute: `npx tsx scripts/route-fees.ts` → Signature: `qEqE3WNBHr6ZM7BM7jQXAAhSmjVYdzp1ZrwyC568asy73tN78dG272KCGShjeygBTD1TpCsP1TTDb8DA62Byc2V`
+- [x] **Verify**: `npx tsx scripts/verify-divvy-config.ts` → GOT: "Vault Balance: 1198087 ✓", "total_routed_dividends: 1198087", "All checks passed." ✅
 
 ## Group 7 — Phase 3 Commit & Checkpoint
 - [ ] Stage all Phase 3 files: `programs/divvy/src/instructions/route_fees.rs`, updated `mod.rs`, `lib.rs`, `math.rs`, `tests/divvy-routing.ts`, `scripts/claim-dbc-fees.ts`, `scripts/route-fees.ts`, `tracked-addresses.json`, spec files.
