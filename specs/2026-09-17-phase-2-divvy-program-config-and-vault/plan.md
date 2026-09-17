@@ -20,11 +20,11 @@
 - [x] **Verify**: `anchor build` → GOT: "Finished `release` profile [optimized] target(s)... target/idl/divvy.json generated" ✅
 
 ## Group 4 — Anchor Integration Tests
-- [ ] `tests/divvy-config.ts`: Implement TypeScript test suite for `initialize_config`:
+- [x] `tests/divvy-config.ts`: Implement TypeScript test suite for `initialize_config`:
   - Test successful config initialization and verify on-chain state matches expected values.
   - Test fee-share boundary validation (rejecting values > 10,000 bps).
   - Test vault token account ownership and zero initial balance.
-- [ ] **Verify**: `npx tsx tests/divvy-config.ts` → expect all tests passing with `4 passing, 0 failed`.
+- [x] **Verify**: `npx tsx tests/divvy-config.ts` → GOT: "Test Results: 4 passing, 0 failed" ✅
 
 ## Group 5 — Devnet Program Deployment
 - [ ] Build release binary with `anchor build`.
