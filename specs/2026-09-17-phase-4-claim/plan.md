@@ -41,12 +41,12 @@
 - [x] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → GOT: `Last Deployed In Slot: 499824382` (> 499782252), `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`, `Data Length: 276264 bytes` ✅
 
 ## Group 4 — Integration Test Suite for `claim` (`tests/`)
-- [ ] `tests/divvy-claim.ts`: TypeScript integration test suite using `npx tsx tests/divvy-claim.ts`:
+- [x] `tests/divvy-claim.ts`: TypeScript integration test suite using `npx tsx tests/divvy-claim.ts`:
   - **Test 1 (Pro-rata calculation)**: verify pro-rata calculation matches on-chain arithmetic for Holder A and Holder B proportions.
   - **Test 2 (ClaimRecord PDA seed derivation)**: verify deterministic PDA derivation for `[b"claim", base_mint, holder]`.
   - **Test 3 (Account & IDL schema check)**: verify all 9 accounts and parameters in `claim` instruction match IDL schema.
   - **Test 4 (Double-claim prevention logic)**: verify PDA init constraint ensures re-claiming with an existing `ClaimRecord` is rejected.
-- [ ] **Verify**: `npx tsx tests/divvy-claim.ts` → expect `"Test Results: 4 passing, 0 failed"`.
+- [x] **Verify**: `npx tsx tests/divvy-claim.ts` → GOT: "Test Results: 4 passing, 0 failed" ✅
 
 ## Group 5 — Holder A Devnet Claim Execution
 - [ ] `scripts/claim-dividend.ts`: Script to execute `claim` on devnet for a given holder keypair:
