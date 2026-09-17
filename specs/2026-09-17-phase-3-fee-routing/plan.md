@@ -19,8 +19,8 @@
 - [x] **Verify**: `cargo test --lib` → GOT: "test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s" ✅
 
 ## Group 3 — Devnet Program Upgrade
-- [ ] Run `solana program deploy target/deploy/divvy.so --program-id target/deploy/divvy-keypair.json --keypair keys/deployer.json --url "https://devnet.helius-rpc.com/?api-key=8dabc2e1-a043-4c0a-a675-52273c7ac948"` to upgrade the deployed program to the version containing `route_fees`.
-- [ ] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → expect `Last Deployed In Slot:` value is **greater than** `499752879` (the Phase 2 deploy slot), confirming a new deploy occurred; `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`.
+- [x] Run `solana program deploy target/deploy/divvy.so --program-id target/deploy/divvy-keypair.json --keypair keys/deployer.json --url "https://devnet.helius-rpc.com/?api-key=8dabc2e1-a043-4c0a-a675-52273c7ac948"` to upgrade the deployed program to the version containing `route_fees`.
+- [x] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → GOT: `Last Deployed In Slot: 499782252` (> 499752879), `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`, `Data Length: 253248 bytes` ✅
 
 ## Group 4 — Integration Test for `route_fees` (`tests/`)
 - [ ] `tests/divvy-routing.ts`: TypeScript integration test suite against a local validator using `npx tsx tests/divvy-routing.ts`:
