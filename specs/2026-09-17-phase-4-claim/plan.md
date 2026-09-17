@@ -71,7 +71,7 @@
 - [x] **Verify**: `npx tsx scripts/verify-claims.ts` → GOT: "Claims Status: VERIFIED ✓", "Double Claim Rejection: CONFIRMED ✓", "All checks passed." ✅
 
 ## Group 7 — Phase 4 Commit & Checkpoint
-- [ ] Stage all Phase 4 files: `programs/divvy/src/state.rs`, `programs/divvy/src/math.rs`, `programs/divvy/src/instructions/claim.rs`, `programs/divvy/src/instructions/mod.rs`, `programs/divvy/src/lib.rs`, `tests/divvy-claim.ts`, `scripts/claim-dividend.ts`, `scripts/verify-claims.ts`, `tracked-addresses.json`, spec files.
-- [ ] Verify `git status` shows no keypair or `.env` files staged.
-- [ ] Commit: `feat(phase-4): implement pro-rata dividend claim instruction and execute holder claims on devnet`.
-- [ ] **Verify**: `git log -1 --pretty=format:"%s"` → expect exactly `feat(phase-4): implement pro-rata dividend claim instruction and execute holder claims on devnet`.
+- [x] Stage all Phase 4 files: `programs/divvy/src/state.rs`, `programs/divvy/src/math.rs`, `programs/divvy/src/instructions/claim.rs`, `programs/divvy/src/instructions/mod.rs`, `programs/divvy/src/lib.rs`, `tests/divvy-claim.ts`, `scripts/claim-dividend.ts`, `scripts/verify-claims.ts`, `tracked-addresses.json`, spec files.
+- [x] Verify `git status` shows no keypair or `.env` files staged.
+- [x] Commit: `feat(phase-4): implement pro-rata dividend claim instruction and execute holder claims on devnet`.
+- [x] **Verify**: `git log -1 --pretty=format:"%s"` → GOT: "feat(phase-4): implement pro-rata dividend claim instruction and execute holder claims on devnet" ✅
