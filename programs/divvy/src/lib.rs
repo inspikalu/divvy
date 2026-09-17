@@ -18,4 +18,8 @@ pub mod divvy {
     ) -> Result<()> {
         handle_initialize_config(ctx, fee_share_bps)
     }
+
+    pub fn route_fees(ctx: Context<RouteFees>, amount_in: u64) -> Result<()> {
+        handle_route_fees(ctx, amount_in)
+    }
 }
