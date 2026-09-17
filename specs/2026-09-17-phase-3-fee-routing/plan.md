@@ -30,14 +30,14 @@
 - [x] **Verify**: `npx tsx tests/divvy-routing.ts` → GOT: "Test Results: 3 passing, 0 failed" ✅
 
 ## Group 5 — Fee Claim Script (DBC → Creator Wallet)
-- [ ] `scripts/claim-dbc-fees.ts`: Script to claim accrued DBC creator trading fees into the deployer's dividend-mint token account:
+- [x] `scripts/claim-dbc-fees.ts`: Script to claim accrued DBC creator trading fees into the deployer's dividend-mint token account:
   - Load pool state from `tracked-addresses.json` (`poolAddress`, `configAddress`, `deployerTokenAccount`).
   - Call `sdk.claimCreatorTradingFeeToReceiver({ creator, payer, pool, maxBaseAmount: new BN(0), maxQuoteAmount: new BN(u64_max), receiver: deployerTokenAccount })`.
   - Sign and send transaction with Helius RPC.
   - After confirmation, read the deployer token account balance (via `getAccount`) and print it.
   - Write `dbcFeeClaimSignature`, `dbcFeeClaimExplorerUrl`, and `dbcFeeClaimQuoteAmount` to `tracked-addresses.json`.
-- [ ] Execute: `npx tsx scripts/claim-dbc-fees.ts`.
-- [ ] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34 --url devnet` → expect a value **greater than 0** (i.e. tokens arrived in deployer's account).
+- [x] Execute: `npx tsx scripts/claim-dbc-fees.ts` → Signature: `5Ao2BwpEESEPYQK3cGqgKrNU1iZWkb3M5ZrrNSt1hhrxePCroN5P9c29zYhuifVDi4HY959RyJ9Wft4ovW5FYEAk`
+- [x] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34 --url devnet` → GOT: "990000" (> 0) ✅
 
 ## Group 6 — Fee Routing Script (Creator Wallet → DividendVault)
 - [ ] `scripts/route-fees.ts`: Script to call the `route_fees` Anchor instruction on devnet:

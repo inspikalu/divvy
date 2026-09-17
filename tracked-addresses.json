@@ -42,16 +42,19 @@
     }
   ],
   "accruedFeesSnapshot": {
-    "creatorQuoteFee": "1996812",
+    "creatorQuoteFee": "0",
     "partnerQuoteFee": "1331208",
     "protocolQuoteFee": "832004",
-    "totalQuoteFee": "4160024",
-    "updatedAt": "2026-09-17T06:30:35.685Z"
+    "totalQuoteFee": "2163212",
+    "updatedAt": "2026-09-17T11:13:24.954Z"
   },
   "divvyConfigPDA": "AhWYbZeiyisCxjrgz4yZRf7sPN8Wx5SxgnpaLVwrwBY4",
   "divvyDividendVaultPDA": "GjXC4iEAh7tqL7MqhY7cpF7Wvdfpa2LBMEL7anwty3Mw",
   "divvyVaultAuthorityPDA": "GhMLTG5273U2gj1gMC7tjYDPdkDfRY4nsTA8HWwEbyr8",
   "divvyFeeShareBps": 6000,
   "divvyInitConfigSignature": "2NyxR7PuKrEFZwVa9MGWAAgG3S5mpq3XfqYWezymYe7KwwuSR7B2ocYSeny4Mf2GK2ubdeu6PToM93dJGQri6V9C",
-  "divvyInitConfigExplorerUrl": "https://explorer.solana.com/tx/2NyxR7PuKrEFZwVa9MGWAAgG3S5mpq3XfqYWezymYe7KwwuSR7B2ocYSeny4Mf2GK2ubdeu6PToM93dJGQri6V9C?cluster=devnet"
+  "divvyInitConfigExplorerUrl": "https://explorer.solana.com/tx/2NyxR7PuKrEFZwVa9MGWAAgG3S5mpq3XfqYWezymYe7KwwuSR7B2ocYSeny4Mf2GK2ubdeu6PToM93dJGQri6V9C?cluster=devnet",
+  "dbcFeeClaimSignature": "5Ao2BwpEESEPYQK3cGqgKrNU1iZWkb3M5ZrrNSt1hhrxePCroN5P9c29zYhuifVDi4HY959RyJ9Wft4ovW5FYEAk",
+  "dbcFeeClaimExplorerUrl": "https://explorer.solana.com/tx/5Ao2BwpEESEPYQK3cGqgKrNU1iZWkb3M5ZrrNSt1hhrxePCroN5P9c29zYhuifVDi4HY959RyJ9Wft4ovW5FYEAk?cluster=devnet",
+  "dbcFeeClaimQuoteAmount": "1996812"
 }
