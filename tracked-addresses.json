@@ -64,5 +64,9 @@
   "holderAClaimSignature": "5REF3WusB2RrRRxwY4Jg6ijYdsGPd4hLeTfWutbMtkwyjPWUZNFPjbL7cCqaUHU2hCAEtvkAZLZYtv9S8DoJAp8V",
   "holderAClaimExplorerUrl": "https://explorer.solana.com/tx/5REF3WusB2RrRRxwY4Jg6ijYdsGPd4hLeTfWutbMtkwyjPWUZNFPjbL7cCqaUHU2hCAEtvkAZLZYtv9S8DoJAp8V?cluster=devnet",
   "holderAClaimAmount": "418308",
-  "holderAClaimRecordPDA": "3qyhnc6t85foaN7ivpsQLAN4Kiot2guoW9AyES8Ykqqk"
+  "holderAClaimRecordPDA": "3qyhnc6t85foaN7ivpsQLAN4Kiot2guoW9AyES8Ykqqk",
+  "holderBClaimSignature": "5DHjNHofE7TrdxC5DtwYoqrgG3wyntRxfHSowEMAVU2wa9966X7JCJ1o6SPUz3xMdPyv7s1gjjKqEK6vTT78QKAv",
+  "holderBClaimExplorerUrl": "https://explorer.solana.com/tx/5DHjNHofE7TrdxC5DtwYoqrgG3wyntRxfHSowEMAVU2wa9966X7JCJ1o6SPUz3xMdPyv7s1gjjKqEK6vTT78QKAv?cluster=devnet",
+  "holderBClaimAmount": "507521",
+  "holderBClaimRecordPDA": "ARxeKkifjBd8o9vT3xQ9SmQBqoWz1SwvN9fHJxR8LS75"
 }

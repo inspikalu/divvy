@@ -60,15 +60,15 @@
 - [x] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner 6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm --url devnet` → GOT: "4927.343203" (> 0) ✅
 
 ## Group 6 — Holder B Devnet Claim Execution & Double-Claim Verification
-- [ ] Execute `npx tsx scripts/claim-dividend.ts --holder holderB` on devnet.
-- [ ] `scripts/verify-claims.ts`: Verification script that queries devnet RPC to:
+- [x] Execute `npx tsx scripts/claim-dividend.ts --holder holderB` on devnet → Signature: `5DHjNHofE7TrdxC5DtwYoqrgG3wyntRxfHSowEMAVU2wa9966X7JCJ1o6SPUz3xMdPyv7s1gjjKqEK6vTT78QKAv`, Claimed: `507521` units
+- [x] `scripts/verify-claims.ts`: Verification script that queries devnet RPC to:
   - Verify Holder A's `ClaimRecord` PDA exists with on-chain `claimed_amount > 0`.
   - Verify Holder B's `ClaimRecord` PDA exists with on-chain `claimed_amount > 0`.
   - Verify Holder B's claimed amount is strictly greater than Holder A's (proportional to their 42.39M vs 22.74M base token holdings).
   - Attempt a duplicate claim from Holder A and assert it fails with PDA initialization collision / duplicate account error.
   - Print on-chain summary and explorer links.
-- [ ] Execute: `npx tsx scripts/verify-claims.ts`.
-- [ ] **Verify**: `npx tsx scripts/verify-claims.ts` → expect output ending with `"Claims Status: VERIFIED ✓"` and `"Double Claim Rejection: CONFIRMED ✓"`.
+- [x] Execute: `npx tsx scripts/verify-claims.ts`.
+- [x] **Verify**: `npx tsx scripts/verify-claims.ts` → GOT: "Claims Status: VERIFIED ✓", "Double Claim Rejection: CONFIRMED ✓", "All checks passed." ✅
 
 ## Group 7 — Phase 4 Commit & Checkpoint
 - [ ] Stage all Phase 4 files: `programs/divvy/src/state.rs`, `programs/divvy/src/math.rs`, `programs/divvy/src/instructions/claim.rs`, `programs/divvy/src/instructions/mod.rs`, `programs/divvy/src/lib.rs`, `tests/divvy-claim.ts`, `scripts/claim-dividend.ts`, `scripts/verify-claims.ts`, `tracked-addresses.json`, spec files.
