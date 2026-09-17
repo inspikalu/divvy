@@ -11,7 +11,7 @@
 - [x] **Verify**: `cargo test --lib` → GOT: "test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s" ✅
 
 ## Group 2 — `claim` Anchor Instruction (On-Chain)
-- [ ] `programs/divvy/src/instructions/claim.rs`: Implement `Claim` context and handler:
+- [x] `programs/divvy/src/instructions/claim.rs`: Implement `Claim` context and handler:
   - Accounts:
     - `holder`: Signer (claimant).
     - `config`: `Account<'info, DivvyConfig>` (mut, checks `base_mint`).
@@ -32,9 +32,9 @@
     - Populate `claim_record`: `holder`, `base_mint`, `claimed_amount`, `claimed_at = Clock::get()?.unix_timestamp`, `bump`.
     - Increment `config.total_claimed_dividends += claim_amount`.
     - Emit permanent log `msg!("claim: holder {} claimed {} dividend units", holder, claim_amount)`.
-- [ ] `programs/divvy/src/instructions/mod.rs`: Export `claim` module.
-- [ ] `programs/divvy/src/lib.rs`: Add `claim` instruction entry point routing to `handle_claim`.
-- [ ] **Verify**: `anchor build` → expect output containing `"Finished `release` profile"` and `target/idl/divvy.json` regenerated with `claim` instruction present: `cat target/idl/divvy.json | python3 -c "import json,sys; d=json.load(sys.stdin); names=[i['name'] for i in d['instructions']]; print(names); assert 'claim' in names, 'claim missing from IDL'"` → expect `['initialize_config', 'route_fees', 'claim']` printed with no AssertionError.
+- [x] `programs/divvy/src/instructions/mod.rs`: Export `claim` module.
+- [x] `programs/divvy/src/lib.rs`: Add `claim` instruction entry point routing to `handle_claim`.
+- [x] **Verify**: `anchor build` → GOT: "Finished `release` profile [optimized] target(s) in 8.05s" and `cat target/idl/divvy.json | python3 -c "..."` → GOT: `['claim', 'initialize_config', 'route_fees']` ✅
 
 ## Group 3 — Devnet Program Upgrade
 - [ ] Run `solana program deploy target/deploy/divvy.so --program-id target/deploy/divvy-keypair.json --keypair keys/deployer.json --url "https://devnet.helius-rpc.com/?api-key=8dabc2e1-a043-4c0a-a675-52273c7ac948"` to upgrade the deployed program to the binary containing `claim`.

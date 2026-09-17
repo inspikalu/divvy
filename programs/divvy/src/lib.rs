@@ -22,4 +22,8 @@ pub mod divvy {
     pub fn route_fees(ctx: Context<RouteFees>, amount_in: u64) -> Result<()> {
         handle_route_fees(ctx, amount_in)
     }
+
+    pub fn claim(ctx: Context<Claim>, eligible_supply: u64) -> Result<()> {
+        handle_claim(ctx, eligible_supply)
+    }
 }
