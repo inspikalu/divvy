@@ -49,15 +49,15 @@
 - [x] **Verify**: `npx tsx tests/divvy-claim.ts` → GOT: "Test Results: 4 passing, 0 failed" ✅
 
 ## Group 5 — Holder A Devnet Claim Execution
-- [ ] `scripts/claim-dividend.ts`: Script to execute `claim` on devnet for a given holder keypair:
+- [x] `scripts/claim-dividend.ts`: Script to execute `claim` on devnet for a given holder keypair:
   - Takes `--holder` argument (`holderA` or `holderB`).
   - Reads `eligible_supply` (sum of Holder A and Holder B base token balances: `65,131,823.752485` base tokens = `65131823752485` atomic units).
   - Creates holder's dividend-mint ATA if needed.
   - Sends `claim` instruction to devnet via Helius RPC.
   - Prints confirmed transaction signature and claimed amount.
   - Updates `tracked-addresses.json` with `holderAClaimSignature`, `holderAClaimAmount`, `holderAClaimExplorerUrl`.
-- [ ] Execute: `npx tsx scripts/claim-dividend.ts --holder holderA`.
-- [ ] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner 6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm --url devnet` → expect a value **greater than 0**, confirming Holder A received dividend quote tokens.
+- [x] Execute: `npx tsx scripts/claim-dividend.ts --holder holderA` → Signature: `5REF3WusB2RrRRxwY4Jg6ijYdsGPd4hLeTfWutbMtkwyjPWUZNFPjbL7cCqaUHU2hCAEtvkAZLZYtv9S8DoJAp8V`, Claimed: `418308` units
+- [x] **Verify**: `spl-token balance A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM --owner 6mnoXCKnXW9Pt99LYYUrSBUnyWbTGfMyn2ZDsXRwdQFm --url devnet` → GOT: "4927.343203" (> 0) ✅
 
 ## Group 6 — Holder B Devnet Claim Execution & Double-Claim Verification
 - [ ] Execute `npx tsx scripts/claim-dividend.ts --holder holderB` on devnet.
