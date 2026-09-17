@@ -37,8 +37,8 @@
 - [x] **Verify**: `anchor build` → GOT: "Finished `release` profile [optimized] target(s) in 8.05s" and `cat target/idl/divvy.json | python3 -c "..."` → GOT: `['claim', 'initialize_config', 'route_fees']` ✅
 
 ## Group 3 — Devnet Program Upgrade
-- [ ] Run `solana program deploy target/deploy/divvy.so --program-id target/deploy/divvy-keypair.json --keypair keys/deployer.json --url "https://devnet.helius-rpc.com/?api-key=8dabc2e1-a043-4c0a-a675-52273c7ac948"` to upgrade the deployed program to the binary containing `claim`.
-- [ ] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → expect `Last Deployed In Slot:` value is **greater than** `499782252` (the Phase 3 deploy slot), confirming the upgrade succeeded.
+- [x] Run `solana program deploy target/deploy/divvy.so --program-id target/deploy/divvy-keypair.json --keypair keys/deployer.json --url "https://devnet.helius-rpc.com/?api-key=8dabc2e1-a043-4c0a-a675-52273c7ac948"` to upgrade the deployed program to the binary containing `claim`.
+- [x] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → GOT: `Last Deployed In Slot: 499824382` (> 499782252), `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`, `Data Length: 276264 bytes` ✅
 
 ## Group 4 — Integration Test Suite for `claim` (`tests/`)
 - [ ] `tests/divvy-claim.ts`: TypeScript integration test suite using `npx tsx tests/divvy-claim.ts`:
