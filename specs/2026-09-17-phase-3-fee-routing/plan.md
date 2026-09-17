@@ -50,7 +50,7 @@
 - [x] **Verify**: `npx tsx scripts/verify-divvy-config.ts` → GOT: "Vault Balance: 1198087 ✓", "total_routed_dividends: 1198087", "All checks passed." ✅
 
 ## Group 7 — Phase 3 Commit & Checkpoint
-- [ ] Stage all Phase 3 files: `programs/divvy/src/instructions/route_fees.rs`, updated `mod.rs`, `lib.rs`, `math.rs`, `tests/divvy-routing.ts`, `scripts/claim-dbc-fees.ts`, `scripts/route-fees.ts`, `tracked-addresses.json`, spec files.
-- [ ] Verify `git status` shows no keypair or `.env` files staged.
-- [ ] Commit: `feat(phase-3): implement route_fees instruction and wire dbc fee claim into dividend vault`.
-- [ ] **Verify**: `git log -1 --pretty=format:"%s"` → expect exactly `feat(phase-3): implement route_fees instruction and wire dbc fee claim into dividend vault`.
+- [x] Stage all Phase 3 files: `programs/divvy/src/instructions/route_fees.rs`, updated `mod.rs`, `lib.rs`, `math.rs`, `tests/divvy-routing.ts`, `scripts/claim-dbc-fees.ts`, `scripts/route-fees.ts`, `tracked-addresses.json`, spec files.
+- [x] Verify `git status` shows no keypair or `.env` files staged.
+- [x] Commit: `feat(phase-3): implement route_fees instruction and wire dbc fee claim into dividend vault`.
+- [x] **Verify**: `git log -1 --pretty=format:"%s"` → GOT: "feat(phase-3): implement route_fees instruction and wire dbc fee claim into dividend vault" ✅
