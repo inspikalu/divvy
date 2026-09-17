@@ -93,4 +93,36 @@ mod tests {
         let share = calculate_pro_rata_share(10_000_000, 100, 0).unwrap();
         assert_eq!(share, 0);
     }
+
+    #[test]
+    fn test_calculate_vault_fee_share_1_bps() {
+        let creator_fee = 1_000_000;
+        let fee_share_bps = 1; // 0.01%
+        let vault_share = calculate_vault_fee_share(creator_fee, fee_share_bps).unwrap();
+        assert_eq!(vault_share, 100);
+    }
+
+    #[test]
+    fn test_calculate_vault_fee_share_floor_truncation() {
+        let creator_fee = 10_005;
+        let fee_share_bps = 1; // 10_005 * 1 / 10_000 = 1
+        let vault_share = calculate_vault_fee_share(creator_fee, fee_share_bps).unwrap();
+        assert_eq!(vault_share, 1);
+    }
+
+    #[test]
+    fn test_calculate_vault_fee_share_large_numbers() {
+        let creator_fee = 1_000_000_000_000_000_000u64; // 1e18
+        let fee_share_bps = 6_000;
+        let vault_share = calculate_vault_fee_share(creator_fee, fee_share_bps).unwrap();
+        assert_eq!(vault_share, 600_000_000_000_000_000u64);
+    }
+
+    #[test]
+    fn test_calculate_vault_fee_share_zero_amount() {
+        let creator_fee = 0;
+        let fee_share_bps = 6_000;
+        let vault_share = calculate_vault_fee_share(creator_fee, fee_share_bps).unwrap();
+        assert_eq!(vault_share, 0);
+    }
 }

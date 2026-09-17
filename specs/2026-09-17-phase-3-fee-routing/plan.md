@@ -11,12 +11,12 @@
 - [x] **Verify**: `anchor build` → GOT: "Finished `release` profile [optimized] target(s) in 13.29s" and `cat target/idl/divvy.json | python3 -c "..."` → GOT: `['initialize_config', 'route_fees']` ✅
 
 ## Group 2 — Unit Tests for `route_fees` Math
-- [ ] `programs/divvy/src/math.rs`: Add unit tests for `calculate_vault_fee_share` covering:
+- [x] `programs/divvy/src/math.rs`: Add unit tests for `calculate_vault_fee_share` covering:
   - 6000 bps of 1_996_812 → expect `1_198_087` (60%).
   - 10000 bps of 1_000_000 → expect `1_000_000` (100%).
   - 1 bps of 1_000_000 → expect `100` (floor, not round).
   - 0 bps → expect error (already guarded by initialize_config bounds, but math function must handle gracefully).
-- [ ] **Verify**: `cargo test --lib` → expect `"test result: ok. 11 passed; 0 failed"` (7 existing + 4 new).
+- [x] **Verify**: `cargo test --lib` → GOT: "test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s" ✅
 
 ## Group 3 — Devnet Program Upgrade
 - [ ] Run `solana program deploy target/deploy/divvy.so --program-id target/deploy/divvy-keypair.json --keypair keys/deployer.json --url "https://devnet.helius-rpc.com/?api-key=8dabc2e1-a043-4c0a-a675-52273c7ac948"` to upgrade the deployed program to the version containing `route_fees`.
