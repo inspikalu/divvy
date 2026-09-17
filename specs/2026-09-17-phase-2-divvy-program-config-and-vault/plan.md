@@ -12,12 +12,12 @@
 - [x] **Verify**: `cargo test --lib` → GOT: "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s" ✅
 
 ## Group 3 — `initialize_config` Instruction & Vault PDA Account Creation
-- [ ] `programs/divvy/src/instructions/initialize_config.rs`: Implement `InitializeConfig` context and instruction logic:
+- [x] `programs/divvy/src/instructions/initialize_config.rs`: Implement `InitializeConfig` context and instruction logic:
   - Validate authority signer and fee-share bounds (1..=10,000 bps).
   - Initialize `DivvyConfig` PDA with seeds `[b"config", base_mint.key().as_ref()]`.
   - Initialize `DividendVault` SPL token account PDA with seeds `[b"vault", base_mint.key().as_ref()]` owned by the program vault PDA.
-- [ ] `programs/divvy/src/instructions/mod.rs` & `programs/divvy/src/lib.rs`: Export and route `initialize_config` handler.
-- [ ] **Verify**: `anchor build` → expect successful build with generated IDL at `target/idl/divvy.json`.
+- [x] `programs/divvy/src/instructions/mod.rs` & `programs/divvy/src/lib.rs`: Export and route `initialize_config` handler.
+- [x] **Verify**: `anchor build` → GOT: "Finished `release` profile [optimized] target(s)... target/idl/divvy.json generated" ✅
 
 ## Group 4 — Anchor Integration Tests
 - [ ] `tests/divvy-config.ts`: Implement TypeScript test suite for `initialize_config`:
