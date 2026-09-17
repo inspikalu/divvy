@@ -25,3 +25,23 @@ impl DivvyConfig {
     pub const SEED_PREFIX: &'static [u8] = b"config";
     pub const VAULT_SEED_PREFIX: &'static [u8] = b"vault";
 }
+
+#[account]
+#[derive(InitSpace)]
+pub struct ClaimRecord {
+    /// The holder that claimed dividends
+    pub holder: Pubkey,
+    /// Base Meme Token Mint (DIV-MEME)
+    pub base_mint: Pubkey,
+    /// Amount of dividend quote tokens claimed
+    pub claimed_amount: u64,
+    /// Unix timestamp of when the claim occurred
+    pub claimed_at: i64,
+    /// Bump seed for the ClaimRecord PDA
+    pub bump: u8,
+}
+
+impl ClaimRecord {
+    pub const SEED_PREFIX: &'static [u8] = b"claim";
+}
+

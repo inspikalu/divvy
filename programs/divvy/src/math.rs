@@ -125,4 +125,29 @@ mod tests {
         let vault_share = calculate_vault_fee_share(creator_fee, fee_share_bps).unwrap();
         assert_eq!(vault_share, 0);
     }
+
+    #[test]
+    fn test_calculate_pro_rata_real_holder_distribution() {
+        let vault_balance = 1_198_087u64;
+        let holder_a_balance = 22_740_573_927_088u64; // ~22.74M
+        let holder_b_balance = 42_391_249_825_397u64; // ~42.39M
+        let eligible_supply = holder_a_balance + holder_b_balance; // 65_131_823_752_485 (~65.13M)
+
+        let share_a = calculate_pro_rata_share(vault_balance, holder_a_balance, eligible_supply).unwrap();
+        let share_b = calculate_pro_rata_share(vault_balance, holder_b_balance, eligible_supply).unwrap();
+
+        assert_eq!(share_a, 418_308);
+        assert_eq!(share_b, 779_778);
+        assert!(share_b > share_a);
+        assert!(share_a + share_b <= vault_balance);
+    }
+
+    #[test]
+    fn test_calculate_pro_rata_precision_and_rounding() {
+        let vault_balance = 100u64;
+        let holder_balance = 1u64;
+        let eligible_supply = 3u64;
+        let share = calculate_pro_rata_share(vault_balance, holder_balance, eligible_supply).unwrap();
+        assert_eq!(share, 33);
+    }
 }
