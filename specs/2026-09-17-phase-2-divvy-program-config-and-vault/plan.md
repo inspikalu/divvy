@@ -7,9 +7,9 @@
 - [x] **Verify**: `anchor build` → GOT: "Finished `test` profile [unoptimized + debuginfo] target(s)... target/deploy/divvy.so target/idl/divvy.json" ✅
 
 ## Group 2 — State Account Definitions & Mathematical Core
-- [ ] `programs/divvy/src/state.rs`: Define `DivvyConfig` account struct storing `authority`, `base_mint`, `dividend_mint`, `fee_share_bps`, `total_routed_dividends`, `total_claimed_dividends`, `bump`, and `vault_bump`.
-- [ ] `programs/divvy/src/math.rs`: Implement pure functions for fee-share calculations with strict overflow protection and unit test coverage.
-- [ ] **Verify**: `cargo test --lib` → expect all unit tests passing with 0 failures.
+- [x] `programs/divvy/src/state.rs`: Define `DivvyConfig` account struct storing `authority`, `base_mint`, `dividend_mint`, `fee_share_bps`, `total_routed_dividends`, `total_claimed_dividends`, `bump`, and `vault_bump`.
+- [x] `programs/divvy/src/math.rs`: Implement pure functions for fee-share calculations with strict overflow protection and unit test coverage.
+- [x] **Verify**: `cargo test --lib` → GOT: "test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s" ✅
 
 ## Group 3 — `initialize_config` Instruction & Vault PDA Account Creation
 - [ ] `programs/divvy/src/instructions/initialize_config.rs`: Implement `InitializeConfig` context and instruction logic:
