@@ -27,16 +27,16 @@
 - [x] **Verify**: `npx tsx tests/divvy-config.ts` → GOT: "Test Results: 4 passing, 0 failed" ✅
 
 ## Group 5 — Devnet Program Deployment
-- [ ] Build release binary with `anchor build`.
-- [ ] Deploy the `divvy` program to Solana devnet using `keys/deployer.json`.
-- [ ] Sync the deployed program ID in `Anchor.toml`, `programs/divvy/src/lib.rs`, and record in `tracked-addresses.json` under `divvyProgramId`.
-- [ ] **Verify**: `solana program show $(jq -r .divvyProgramId tracked-addresses.json) --url devnet` → expect `ProgramData Address` and `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`.
+- [x] Build release binary with `anchor build`.
+- [x] Deploy the `divvy` program to Solana devnet using `keys/deployer.json` via Helius RPC.
+- [x] Sync the deployed program ID in `Anchor.toml`, `programs/divvy/src/lib.rs`, and record in `tracked-addresses.json` under `divvyProgramId`.
+- [x] **Verify**: `solana program show 235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5 --url devnet` → GOT: `ProgramData Address: Bz1mhUdKDYg1UCwd1kwv7HNg2X4rGSa28662U5khyKC3`, `Authority: BhuEDwTXtWBHZ3rMWAQuP3wqbiqJR39yo6T8LDoZ1A34`, `Data Length: 222784 bytes` ✅
 
 ## Group 6 — Devnet Initialization Script & On-Chain Verification
-- [ ] `scripts/initialize-divvy-config.ts`: Implement script to execute `initialize_config` on devnet pairing the Phase 1 meme token (`3pX9emk345wevCj8wYuDHPnhtEV5NKuFwSbUCCuQFgP4`) and dividend quote token (`A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM`) with 60% (6000 bps) fee share.
-- [ ] `scripts/verify-divvy-config.ts`: Implement verification script to query devnet RPC and inspect `DivvyConfig` and `DividendVault` accounts.
-- [ ] Execute `npx tsx scripts/initialize-divvy-config.ts`.
-- [ ] **Verify**: `npx tsx scripts/verify-divvy-config.ts` → expect `Config Status: INITIALIZED` and `Vault Balance: 0`.
+- [x] `scripts/initialize-divvy-config.ts`: Implement script to execute `initialize_config` on devnet pairing the Phase 1 meme token (`3pX9emk345wevCj8wYuDHPnhtEV5NKuFwSbUCCuQFgP4`) and dividend quote token (`A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM`) with 60% (6000 bps) fee share.
+- [x] `scripts/verify-divvy-config.ts`: Implement verification script to query devnet RPC and inspect `DivvyConfig` and `DividendVault` accounts.
+- [x] Execute `npx tsx scripts/initialize-divvy-config.ts` → Signature: `2NyxR7PuKrEFZwVa9MGWAAgG3S5mpq3XfqYWezymYe7KwwuSR7B2ocYSeny4Mf2GK2ubdeu6PToM93dJGQri6V9C`
+- [x] **Verify**: `npx tsx scripts/verify-divvy-config.ts` → GOT: `Config Status: INITIALIZED ✓`, `Vault Balance: 0 ✓`, `All checks passed.` ✅
 
 ## Group 7 — Phase 2 Commit & Checkpoint
 - [ ] Stage all Phase 2 files (`programs/`, `tests/`, `scripts/`, `Anchor.toml`, `Cargo.toml`, `Cargo.lock`, `tracked-addresses.json`, and specs).
