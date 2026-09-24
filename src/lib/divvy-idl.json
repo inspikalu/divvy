@@ -1,0 +1,602 @@
+{
+  "address": "235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5",
+  "metadata": {
+    "name": "divvy",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Divvy - Open dividend layer for Solana memestocks"
+  },
+  "instructions": [
+    {
+      "name": "claim",
+      "discriminator": [
+        62,
+        198,
+        214,
+        193,
+        213,
+        159,
+        108,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "holder",
+          "docs": [
+            "The claiming token holder"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "docs": [
+            "DivvyConfig PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "holder_base_token_account",
+          "docs": [
+            "Holder's Base Meme Token account — proves eligibility and balance"
+          ]
+        },
+        {
+          "name": "holder_dividend_token_account",
+          "docs": [
+            "Holder's Dividend Quote Token account — receives dividend payout"
+          ],
+          "writable": true
+        },
+        {
+          "name": "dividend_vault",
+          "docs": [
+            "DividendVault PDA token account — source of dividend payout"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "claim_record",
+          "docs": [
+            "ClaimRecord PDA — initialized on first claim, preventing double-claims"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  108,
+                  97,
+                  105,
+                  109
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              },
+              {
+                "kind": "account",
+                "path": "holder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "eligible_supply",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_config",
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "base_mint",
+          "docs": [
+            "The base meme token mint for which this dividend vault is created"
+          ]
+        },
+        {
+          "name": "dividend_mint",
+          "docs": [
+            "The dividend asset (SPL quote token standing in for tokenized equity)"
+          ]
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "base_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dividend_vault",
+          "docs": [
+            "Token account holding the dividend assets, owned by vault_authority PDA"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "base_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "base_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_share_bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "route_fees",
+      "discriminator": [
+        227,
+        170,
+        48,
+        115,
+        154,
+        57,
+        59,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "docs": [
+            "The creator / protocol authority — must match config.authority"
+          ],
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "config"
+          ]
+        },
+        {
+          "name": "config",
+          "docs": [
+            "DivvyConfig PDA — validates authority and holds fee_share_bps"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "creator_token_account",
+          "docs": [
+            "Creator's dividend-mint token account — source of the fee transfer"
+          ],
+          "writable": true
+        },
+        {
+          "name": "dividend_vault",
+          "docs": [
+            "DividendVault PDA token account — destination of the fee transfer"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  111,
+                  114,
+                  105,
+                  116,
+                  121
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "config.base_mint",
+                "account": "DivvyConfig"
+              }
+            ]
+          }
+        },
+        {
+          "name": "dividend_mint",
+          "docs": [
+            "The dividend-asset mint"
+          ]
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "eligible_supply",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ClaimRecord",
+      "discriminator": [
+        57,
+        229,
+        0,
+        9,
+        65,
+        62,
+        96,
+        7
+      ]
+    },
+    {
+      "name": "DivvyConfig",
+      "discriminator": [
+        176,
+        234,
+        103,
+        143,
+        102,
+        122,
+        6,
+        119
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "MathOverflow",
+      "msg": "Calculation overflow"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidFeeShare",
+      "msg": "Fee share exceeds 100% (10,000 BPS)"
+    }
+  ],
+  "types": [
+    {
+      "name": "ClaimRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "holder",
+            "docs": [
+              "The holder that claimed dividends"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "base_mint",
+            "docs": [
+              "Base Meme Token Mint (DIV-MEME)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "claimed_amount",
+            "docs": [
+              "Amount of dividend quote tokens claimed"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "claimed_at",
+            "docs": [
+              "Unix timestamp of when the claim occurred"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "last_claimed_index",
+            "docs": [
+              "Cumulative dividend index at the time of the holder's last claim"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "Bump seed for the ClaimRecord PDA"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DivvyConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "docs": [
+              "Authority allowed to update settings / manage protocol configuration"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "base_mint",
+            "docs": [
+              "Base Meme Token Mint (DIV-MEME)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "dividend_mint",
+            "docs": [
+              "Dividend Quote Token Mint (xSTOCK)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "fee_share_bps",
+            "docs": [
+              "Share of creator trading fees allocated to the dividend vault in BPS (e.g. 6000 = 60.00%)"
+            ],
+            "type": "u16"
+          },
+          {
+            "name": "total_routed_dividends",
+            "docs": [
+              "Cumulative dividend tokens routed into the vault"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_claimed_dividends",
+            "docs": [
+              "Cumulative dividend tokens claimed by holders"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "cumulative_dividend_per_token",
+            "docs": [
+              "Scaled cumulative dividend index: sum of (routed_vault_tokens * 10^12 / eligible_supply)"
+            ],
+            "type": "u128"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "Bump seed for the DivvyConfig PDA"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "docs": [
+              "Bump seed for the DividendVault PDA authority"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

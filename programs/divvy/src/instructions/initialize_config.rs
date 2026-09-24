@@ -63,6 +63,7 @@ pub fn handle_initialize_config(
     config.fee_share_bps = fee_share_bps;
     config.total_routed_dividends = 0;
     config.total_claimed_dividends = 0;
+    config.cumulative_dividend_per_token = 0;
     config.bump = ctx.bumps.config;
     config.vault_bump = ctx.bumps.vault_authority;
 

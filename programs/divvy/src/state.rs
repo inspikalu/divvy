@@ -15,6 +15,8 @@ pub struct DivvyConfig {
     pub total_routed_dividends: u64,
     /// Cumulative dividend tokens claimed by holders
     pub total_claimed_dividends: u64,
+    /// Scaled cumulative dividend index: sum of (routed_vault_tokens * 10^12 / eligible_supply)
+    pub cumulative_dividend_per_token: u128,
     /// Bump seed for the DivvyConfig PDA
     pub bump: u8,
     /// Bump seed for the DividendVault PDA authority
@@ -33,10 +35,12 @@ pub struct ClaimRecord {
     pub holder: Pubkey,
     /// Base Meme Token Mint (DIV-MEME)
     pub base_mint: Pubkey,
-    /// Amount of dividend quote tokens claimed
+    /// Cumulative dividend quote tokens claimed to date
     pub claimed_amount: u64,
-    /// Unix timestamp of when the claim occurred
+    /// Unix timestamp of the most recent claim
     pub claimed_at: i64,
+    /// Cumulative dividend index at the time of the holder's last claim
+    pub last_claimed_index: u128,
     /// Bump seed for the ClaimRecord PDA
     pub bump: u8,
 }
@@ -44,4 +48,3 @@ pub struct ClaimRecord {
 impl ClaimRecord {
     pub const SEED_PREFIX: &'static [u8] = b"claim";
 }
-

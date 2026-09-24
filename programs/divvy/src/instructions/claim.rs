@@ -1,14 +1,14 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Token, TokenAccount, Transfer};
 
-use crate::math::{calculate_pro_rata_share, MathError};
+use crate::math::{calculate_index_claim_amount, calculate_pro_rata_share, MathError};
 use crate::state::{ClaimRecord, DivvyConfig};
 
 #[error_code]
 pub enum ClaimError {
     #[msg("Holder has zero base token balance")]
     NoEligibleBalance,
-    #[msg("Calculated claim amount is zero")]
+    #[msg("Calculated claim amount is zero or no new dividends accrued")]
     ZeroClaimAmount,
 }
 
@@ -58,9 +58,9 @@ pub struct Claim<'info> {
     )]
     pub vault_authority: UncheckedAccount<'info>,
 
-    /// ClaimRecord PDA — initialized on first claim, preventing double-claims
+    /// ClaimRecord PDA — initialized on first claim, updated on subsequent claims
     #[account(
-        init,
+        init_if_needed,
         payer = holder,
         space = 8 + ClaimRecord::INIT_SPACE,
         seeds = [ClaimRecord::SEED_PREFIX, config.base_mint.as_ref(), holder.key().as_ref()],
@@ -76,9 +76,19 @@ pub fn handle_claim(ctx: Context<Claim>, eligible_supply: u64) -> Result<()> {
     let holder_balance = ctx.accounts.holder_base_token_account.amount;
     require!(holder_balance > 0, ClaimError::NoEligibleBalance);
 
-    let vault_balance = ctx.accounts.dividend_vault.amount;
-    let claim_amount = calculate_pro_rata_share(vault_balance, holder_balance, eligible_supply)
-        .map_err(|_| MathError::MathOverflow)?;
+    let global_index = ctx.accounts.config.cumulative_dividend_per_token;
+    let last_index = ctx.accounts.claim_record.last_claimed_index;
+
+    let claim_amount = if global_index > 0 {
+        // Option B: Cumulative index claim calculation
+        calculate_index_claim_amount(holder_balance, global_index, last_index)
+            .map_err(|_| MathError::MathOverflow)?
+    } else {
+        // Fallback to vault pro-rata share
+        let vault_balance = ctx.accounts.dividend_vault.amount;
+        calculate_pro_rata_share(vault_balance, holder_balance, eligible_supply)
+            .map_err(|_| MathError::MathOverflow)?
+    };
 
     require!(claim_amount > 0, ClaimError::ZeroClaimAmount);
 
@@ -102,12 +112,16 @@ pub fn handle_claim(ctx: Context<Claim>, eligible_supply: u64) -> Result<()> {
     );
     token::transfer(cpi_ctx, claim_amount)?;
 
-    // Populate ClaimRecord PDA
+    // Update ClaimRecord PDA
     let claim_record = &mut ctx.accounts.claim_record;
     claim_record.holder = ctx.accounts.holder.key();
     claim_record.base_mint = base_mint;
-    claim_record.claimed_amount = claim_amount;
+    claim_record.claimed_amount = claim_record
+        .claimed_amount
+        .checked_add(claim_amount)
+        .ok_or(MathError::MathOverflow)?;
     claim_record.claimed_at = Clock::get()?.unix_timestamp;
+    claim_record.last_claimed_index = global_index;
     claim_record.bump = ctx.bumps.claim_record;
 
     // Increment config cumulative claimed total
@@ -119,11 +133,12 @@ pub fn handle_claim(ctx: Context<Claim>, eligible_supply: u64) -> Result<()> {
 
     // Deliberate permanent program log — visible on Solana Explorer during demo
     msg!(
-        "claim: holder {} claimed {} dividend units (balance: {} / supply: {})",
+        "claim: holder {} claimed {} dividend units (total claimed to date: {}). Index updated: {} -> {}",
         ctx.accounts.holder.key(),
         claim_amount,
-        holder_balance,
-        eligible_supply
+        claim_record.claimed_amount,
+        last_index,
+        global_index
     );
 
     Ok(())

@@ -25,25 +25,26 @@
 
 ## Selected Scope
 
-1. **Next.js 14 App Router Application:**
-   - Client-side application using React 18, TypeScript 5.4, and Tailwind CSS 3.4.
-   - Solana Wallet Adapter integration (`@solana/wallet-adapter-react`, `@solana/wallet-adapter-react-ui`, `@solana/wallet-adapter-wallets`) configured for Solana devnet.
+1. **Next.js 15 App Router Application:**
+   - Client-side application using Next.js 15, React 18, TypeScript 5.4, and Tailwind CSS 3.4.
+   - Solana Wallet Standard integration (`@solana/wallet-adapter-base`, `@solana/wallet-adapter-react`) with custom, hydration-safe `WalletConnectButton` auto-detecting all standard wallets (Phantom, Solflare, Backpack, etc.) on Solana devnet.
    - Zero server-side rendering hydration mismatches for wallet connection components.
 
 2. **Live On-Chain Protocol Metrics (Direct RPC Reads):**
    - Total Fees Routed (`config.total_routed_dividends`).
    - Total Dividends Claimed (`config.total_claimed_dividends`).
+   - Cumulative Dividend Index (`config.cumulative_dividend_per_token`).
    - Current Vault Balance (live SPL Token balance of `DividendVault` PDA).
    - Configured Fee Share Percentage (`config.fee_share_bps / 100`, e.g., 60.00%).
    - Active Token Pair Details (Base Meme Mint `3pX9emk...` and Dividend Quote Mint `A3cQgqc...`).
    - Meteora DBC Pool details (`Erzp6Eh...`) and curve configuration parameters.
 
-3. **Holder Dividend & Claim Portal:**
+3. **Holder Dividend & Continuous Claim Portal:**
    - Connected wallet balances: SOL, Base Token (`3pX9emk...`), and Dividend Token (`A3cQgqc...`).
-   - Real-time on-chain `ClaimRecord` PDA check (`[b"claim", base_mint, holder]`) to determine whether the connected wallet has claimed.
-   - For unclaimed holders: dynamic pro-rata share calculation (`(vault_balance * holder_balance) / eligible_supply`).
-   - For claimed holders: displays claimed amount, timestamp, and transaction proof.
-   - Interactive "Claim Dividend" transaction flow: builds Anchor `claim` instruction, prompts wallet signature, sends to devnet via RPC, awaits confirmation, displays confirmation toast with Solana Explorer link, and updates UI balances in real time.
+   - Real-time on-chain `ClaimRecord` PDA check (`[b"claim", base_mint, holder]`) with `last_claimed_index`.
+   - Continuous yield calculation: `(holder_balance * (global_index - last_claimed_index)) / 10^12` with fallback to pro-rata share.
+   - Displays previous claimed total, current newly claimable amount, timestamp, and transaction proof.
+   - Interactive "Claim Dividend" transaction flow: builds Anchor `claim` instruction, prompts wallet signature, sends to devnet via RPC, awaits confirmation, displays confirmation toast with Solana Explorer link, and updates UI balances in real time. Holders can claim repeatedly whenever new fees accrue.
 
 4. **Creator Enable & Configuration Panel (US-1):**
    - Creator overview of active Divvy pool configuration and fee split rules.

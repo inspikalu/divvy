@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Mint, Token, TokenAccount, Transfer};
 
-use crate::math::{calculate_vault_fee_share, MathError};
+use crate::math::{calculate_vault_fee_share, MathError, INDEX_SCALE};
 use crate::state::DivvyConfig;
 
 #[derive(Accounts)]
@@ -50,7 +50,11 @@ pub struct RouteFees<'info> {
     pub token_program: Program<'info, Token>,
 }
 
-pub fn handle_route_fees(ctx: Context<RouteFees>, amount_in: u64) -> Result<()> {
+pub fn handle_route_fees(
+    ctx: Context<RouteFees>,
+    amount_in: u64,
+    eligible_supply: u64,
+) -> Result<()> {
     let fee_share_bps = ctx.accounts.config.fee_share_bps;
 
     let vault_share = calculate_vault_fee_share(amount_in, fee_share_bps)
@@ -59,7 +63,6 @@ pub fn handle_route_fees(ctx: Context<RouteFees>, amount_in: u64) -> Result<()> 
     require!(vault_share > 0, MathError::MathOverflow);
 
     // CPI: transfer vault_share from creator_token_account → dividend_vault
-    // The authority Signer signs this directly (no PDA signer needed on source).
     let cpi_ctx = CpiContext::new(
         ctx.accounts.token_program.to_account_info(),
         Transfer {
@@ -70,19 +73,33 @@ pub fn handle_route_fees(ctx: Context<RouteFees>, amount_in: u64) -> Result<()> 
     );
     token::transfer(cpi_ctx, vault_share)?;
 
-    // Update cumulative routed total
+    // Update cumulative routed total and global cumulative dividend index
     let config = &mut ctx.accounts.config;
     config.total_routed_dividends = config
         .total_routed_dividends
         .checked_add(vault_share)
         .ok_or(MathError::MathOverflow)?;
 
+    if eligible_supply > 0 {
+        let added_index = (vault_share as u128)
+            .checked_mul(INDEX_SCALE)
+            .ok_or(MathError::MathOverflow)?
+            .checked_div(eligible_supply as u128)
+            .ok_or(MathError::MathOverflow)?;
+
+        config.cumulative_dividend_per_token = config
+            .cumulative_dividend_per_token
+            .checked_add(added_index)
+            .ok_or(MathError::MathOverflow)?;
+    }
+
     // Deliberate permanent program log — visible on Solana Explorer during demo
     msg!(
-        "route_fees: routed {} lamports to vault ({}bps of {})",
+        "route_fees: routed {} lamports to vault ({}bps of {}). New index: {}",
         vault_share,
         fee_share_bps,
-        amount_in
+        amount_in,
+        config.cumulative_dividend_per_token
     );
 
     Ok(())

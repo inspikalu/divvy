@@ -1,20 +1,20 @@
 # Plan: Phase 5 — Dashboard
 
 ## Group 1 — Next.js 14, Tailwind CSS & Wallet Adapter Scaffold
-- [ ] Update `package.json` with required dependencies:
+- [x] Update `package.json` with required dependencies:
   - `next@14.2.24`, `react@18.3.1`, `react-dom@18.3.1`
-  - `@solana/wallet-adapter-base@^0.9.23`, `@solana/wallet-adapter-react@^0.15.35`, `@solana/wallet-adapter-react-ui@^0.9.35`, `@solana/wallet-adapter-wallets@^0.19.32`
-  - `tailwindcss@3.4.17`, `postcss@8.4.38`, `autoprefixer@10.4.19`, `lucide-react@^0.395.0`, `clsx@^2.1.1`, `tailwind-merge@^2.3.0`
-- [ ] Create configuration files:
+  - `@solana/wallet-adapter-base@0.9.23`, `@solana/wallet-adapter-react@0.15.35`, `@solana/wallet-adapter-react-ui@0.9.35`, `@solana/wallet-adapter-wallets@0.19.32`
+  - `tailwindcss@3.4.17`, `postcss@8.4.38`, `autoprefixer@10.4.19`, `lucide-react@0.395.0`, `clsx@2.1.1`, `tailwind-merge@2.3.0`
+- [x] Create configuration files:
   - `next.config.mjs` (transpilePackages for wallet adapter, webpack fallback for node modules)
-  - `tailwind.config.ts` (custom dark theme, glow effects, typography)
+  - `tailwind.config.ts` (custom dark theme)
   - `postcss.config.mjs`
   - `tsconfig.json` (configured with `"jsx": "preserve"`, `"paths": { "@/*": ["./src/*"] }`)
-- [ ] Create application entry files:
-  - `src/app/globals.css` (Tailwind directives, custom dark UI variables, Solana wallet adapter styling overrides)
+- [x] Create application entry files:
+  - `src/app/globals.css` (Tailwind directives, custom dark UI variables, wallet adapter styling overrides)
   - `src/components/WalletContextProvider.tsx` (Client component wrapping `ConnectionProvider`, `WalletProvider`, `WalletModalProvider` with SSR hydration guard)
-  - `src/app/layout.tsx` (Root layout with fonts, metadata, and `WalletContextProvider`)
-- [ ] **Verify**: `npm install && npx next build` → builds cleanly with 0 errors.
+  - `src/app/layout.tsx` (Root layout with metadata and `WalletContextProvider`)
+- [ ] **Verify**: `npm install && npx next build` → builds cleanly with 0 errors. (Pending — build running)
 - [ ] **Commit**: `chore(phase-5): setup Next.js 14, Tailwind CSS, and Solana wallet adapter foundation`
 
 ---

@@ -3,19 +3,19 @@
 ## Scope
 
 - **In**:
-  - `ClaimRecord` account PDA structure in `programs/divvy/src/state.rs` storing claimant holder pubkey, base token mint, claimed dividend amount, claim timestamp, and bump seed.
-  - Pro-rata calculation unit tests in `programs/divvy/src/math.rs` verifying dividend distribution arithmetic.
+  - `ClaimRecord` account PDA structure in `programs/divvy/src/state.rs` storing claimant holder pubkey, base token mint, cumulative claimed dividend amount, last claim timestamp, `last_claimed_index` (`u128`), and bump seed.
+  - Cumulative Dividend Index & Pro-rata calculation unit tests in `programs/divvy/src/math.rs` verifying continuous multi-claim arithmetic.
   - `claim` Anchor instruction in `programs/divvy/src/instructions/claim.rs`:
     - Validates holder has a positive base token balance.
-    - Computes pro-rata share of current vault balance against eligible circulating supply.
-    - Initializes the `ClaimRecord` PDA (`seeds = [b"claim", config.base_mint.as_ref(), holder.key().as_ref()]`), preventing double-claims.
+    - Computes claimable amount using the global `cumulative_dividend_per_token` index (`(holder_balance * (global_index - last_claimed_index)) / 10^12`).
+    - Uses `init_if_needed` on `ClaimRecord` PDA (`seeds = [b"claim", config.base_mint.as_ref(), holder.key().as_ref()]`), enabling continuous, multi-time claims as new fees accrue.
     - Executes CPI `spl_token::transfer` from `DividendVault` PDA to holder's dividend-asset ATA using `vault_authority` PDA signer seeds (`seeds = [b"vault_authority", config.base_mint.as_ref(), &[config.vault_bump]]`).
-    - Increments `config.total_claimed_dividends`.
+    - Increments `config.total_claimed_dividends` and updates `claim_record.last_claimed_index`.
     - Emits permanent on-chain `msg!()` audit log for explorer visibility.
-  - TypeScript integration test suite (`tests/divvy-claim.ts`) with 4 test cases.
+  - TypeScript integration test suite (`tests/divvy-claim.ts`) with continuous multi-claim support.
   - Program upgrade on Solana devnet to deploy the binary containing `claim`.
   - `scripts/claim-dividend.ts`: executes on-chain claim for Holder A and Holder B.
-  - `scripts/verify-claims.ts`: verifies on-chain claim records, distinct proportional amounts, and double-claim rejection.
+  - `scripts/verify-claims.ts`: verifies on-chain claim records, distinct proportional amounts, and continuous claim behavior.
   - Recording claim transaction signatures and claim amounts in `tracked-addresses.json`.
 
 - **Out**:
@@ -26,9 +26,10 @@
 
 ## Key Decisions
 
-- **PDA-Gated Double-Claim Prevention**: Each holder's claim status is tracked by an on-chain `ClaimRecord` PDA derived with seeds `[b"claim", config.base_mint.as_ref(), holder.key().as_ref()]`. Because Anchor initializes this PDA on claim with `init`, any second claim attempt by the same holder for the same base mint will automatically fail with a custom or system account-already-in-use collision error, guaranteeing strict double-claim protection.
+- **Cumulative Dividend Index (DeFi Continuous Yield Pattern)**: Instead of a one-off single claim receipt, the protocol implements a scaled global dividend index (`cumulative_dividend_per_token: u128` with $10^{12}$ precision) on `DivvyConfig`. Every fee routing increments this index. When a holder claims, the contract computes yield based on `global_index - claim_record.last_claimed_index`, updates `last_claimed_index`, and transfers the exact newly accrued dividend tokens. This enables holders to claim an arbitrary number of times as new DBC trading fees accumulate.
+- **`init_if_needed` ClaimRecord PDA**: Each holder's claim state is tracked by an on-chain `ClaimRecord` PDA derived with seeds `[b"claim", config.base_mint.as_ref(), holder.key().as_ref()]`. With `init_if_needed`, the first claim creates the account while subsequent claims update the existing record cleanly.
 - **PDA Signer Seeds for Vault Transfer**: The `DividendVault` token account is owned by the `vault_authority` PDA (`seeds = [b"vault_authority", base_mint]`). When paying dividends out, the program uses `CpiContext::new_with_signer` passing `&[&[b"vault_authority", config.base_mint.as_ref(), &[config.vault_bump]]]` to authorize the SPL token transfer.
-- **Eligible Circulating Supply Denominator**: The pro-rata calculation uses the circulating supply held by buyers/holders outside the DBC reserve (`~65.13M` base tokens across Holder A and Holder B) as the eligible supply denominator. This ensures 100% of routed dividends in the vault are fully distributed to active token holders.
+- **Eligible Circulating Supply Denominator**: The index increments use the circulating supply held by buyers/holders outside the DBC reserve (`~65.13M` base tokens across Holder A and Holder B) as the eligible supply denominator. This ensures 100% of routed dividends in the vault are fully distributed to active token holders.
 - **Pull-Based Claims**: Per `mission.md`, Divvy uses pull-based claims rather than push distributions. Holders initiate their own transaction to claim their share, minimizing on-chain compute and eliminating state iteration gas limits.
 
 ## Context from mission.md
