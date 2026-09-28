@@ -209,7 +209,21 @@ export default function SliteEditorialLandingPage() {
                 Interactive Yield Simulator
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-                Simulate your token&apos;s dividend yield
+                Simulate your token&apos;s{' '}
+                <span className="relative inline-block">
+                  {/* Butter-yellow corner bracket marks */}
+                  <svg className="absolute -inset-x-[6px] -inset-y-[4px] w-[calc(100%+12px)] h-[calc(100%+8px)] pointer-events-none select-none text-[#F59E0B]" viewBox="0 0 180 38" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    {/* Top-left corner */}
+                    <path d="M16 4L4 4L4 16" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.75"/>
+                    {/* Top-right corner */}
+                    <path d="M164 4L176 4L176 16" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.75"/>
+                    {/* Bottom-left corner */}
+                    <path d="M16 34L4 34L4 22" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.75"/>
+                    {/* Bottom-right corner */}
+                    <path d="M164 34L176 34L176 22" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.75"/>
+                  </svg>
+                  dividend yield
+                </span>
               </h2>
               <p className="text-xs sm:text-sm text-slate-500">
                 See how much quote asset yield ($xSTOCK / $USDC) your token community earns based on Meteora DBC trading volume.
@@ -341,7 +355,15 @@ export default function SliteEditorialLandingPage() {
                   Architecture &amp; Settlement
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-[#231B2A] tracking-tight leading-tight">
-                  Your dividends never touch our wallet.
+                  Your dividends{' '}
+                  <span className="relative inline-block">
+                    {/* Rough chalk underline */}
+                    <svg className="absolute -bottom-[12%] left-0 w-full h-[18%] pointer-events-none select-none text-[#C4B5FD]" viewBox="0 0 300 14" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                      <path d="M2 8C40 4 100 3 158 5C216 7 268 10 298 8" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.9"/>
+                      <path d="M12 11C60 8 130 7 180 9C230 11 272 12 294 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.45"/>
+                    </svg>
+                    never touch our wallet.
+                  </span>
                 </h2>
               </div>
               <div className="lg:col-span-5 text-left">
@@ -480,9 +502,17 @@ export default function SliteEditorialLandingPage() {
 
         {/* 7. Redesigned Human CTA Section (Deep Plum Block, No Badges, Natural Flow) */}
         <section className="py-20 px-4 sm:px-6 max-w-5xl mx-auto">
-          <div className="grain-dark relative rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-8 sm:p-14 text-center space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
+          <div className="grain-dark-soft relative rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-8 sm:p-14 text-center space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-2xl mx-auto leading-tight">
-              Try it on devnet in five minutes.
+              Try it on devnet in{' '}
+              <span className="relative inline-block whitespace-nowrap">
+                {/* Lavender loose underline swoop */}
+                <svg className="absolute -bottom-[8%] left-0 w-full h-[22%] pointer-events-none select-none text-[#C4B5FD]" viewBox="0 0 220 16" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <path d="M4 9C30 5 80 3 116 6C152 9 190 13 216 10" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.85"/>
+                  <path d="M18 13C55 10 100 9 140 11C175 13 200 14 210 13" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.4"/>
+                </svg>
+                five minutes.
+              </span>
             </h2>
             <p className="text-base sm:text-lg text-[#D6C8E8] max-w-xl mx-auto leading-relaxed font-normal">
               Explore live on-chain vaults, test the holder claim portal with funded demo wallets, or launch fee-sharing on your own token.
