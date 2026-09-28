@@ -67,7 +67,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-2.5 transition-colors hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
       >
         <Image
-          src="/divvy-mod.png"
+          src="/icon.png"
           alt="Divvy logo"
           width={36}
           height={36}

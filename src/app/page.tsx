@@ -51,10 +51,17 @@ export default function SliteEditorialLandingPage() {
             href="/"
             className="flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-full"
           >
+            <Image
+              src="/icon.png"
+              alt="Divvy Logo"
+              width={28}
+              height={28}
+              className="h-7 w-7 rounded-lg flex-shrink-0"
+              priority
+            />
             <span className="font-extrabold text-2xl tracking-tight text-[#1A1A1A]">
               divvy
             </span>
-            <span className="h-2 w-2 rounded-full bg-[#7C3AED]" />
           </Link>
 
           {/* Minimalist Slite-style Nav Links */}
@@ -149,8 +156,8 @@ export default function SliteEditorialLandingPage() {
             </p>
           </div>
 
-          {/* Primary Warm Action Button & Trust Indicators (Slite Layout) */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          {/* Centered Primary Warm Action Button */}
+          <div className="pt-2 flex items-center justify-center">
             <Link
               href="/app"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#7C3AED] px-8 py-4 text-base font-bold text-white shadow-sm hover:bg-[#6D28D9] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
@@ -158,18 +165,6 @@ export default function SliteEditorialLandingPage() {
               <span>Launch Divvy App</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
-
-            {/* Compliance / Security Trust Indicators */}
-            <div className="flex items-center gap-4 text-slate-500 font-mono text-xs">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/10 bg-white/60">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span className="font-semibold text-slate-800">Anchor PDA</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/10 bg-white/60">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="font-semibold text-slate-800">Devnet Live</span>
-              </div>
-            </div>
           </div>
 
           {/* 3. Interactive Live App Preview Playing a Sequence (Slite Screen 2) */}
