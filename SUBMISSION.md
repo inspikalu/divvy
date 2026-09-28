@@ -23,3 +23,20 @@ Key Architecture and How It Works:
 
 Why It Matters:
 Divvy transforms speculative meme tokens into yield-bearing productive assets, aligning long-term incentives between creators, traders, and holders while driving sustained liquidity and volume into Meteora Dynamic Bonding Curves and the Solana tokenized equity ecosystem.
+
+## 4. GitHub Repository
+https://github.com/inspikalu/divvy
+
+## 5. Demo URL
+https://go.inspikalu.xyz/divvy-demo
+
+## 6. Pitch Video URL
+https://go.inspikalu.xyz/divvy-pitch
+
+## 7. Technical Video URL
+https://go.inspikalu.xyz/divvy-tech-demo
+
+## 8. Selected Sponsor Tracks
+1. Meteora (Best Use of Meteora DBC)
+2. Tessera (Best Use of Tessera, Pre-IPO stocks)
+3. PreStocks (Best Use of PreStocks)

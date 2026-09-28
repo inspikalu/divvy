@@ -45,8 +45,14 @@ export interface HolderAccountState {
 
 export function useHolderAccount(
   vaultBalanceAtomic: bigint,
-  cumulativeDividendPerToken: bigint = BigInt(0)
+  cumulativeDividendPerToken: bigint = BigInt(0),
+  eligibleSupplyAtomic: bigint = ELIGIBLE_SUPPLY_ATOMIC,
+  baseMintOverride?: PublicKey,
+  dividendMintOverride?: PublicKey,
 ): HolderAccountState {
+  const ACTIVE_BASE_MINT = baseMintOverride ?? BASE_MINT;
+  const ACTIVE_DIVIDEND_MINT = dividendMintOverride ?? DIVIDEND_MINT;
+
   const { connection } = useConnection();
   const { publicKey } = useWallet();
 
@@ -76,7 +82,7 @@ export function useHolderAccount(
 
       // 2. Fetch Base Token ATA Balance
       try {
-        const baseAta = getAssociatedTokenAddressSync(BASE_MINT, publicKey);
+        const baseAta = getAssociatedTokenAddressSync(ACTIVE_BASE_MINT, publicKey);
         const baseResp = await connection.getTokenAccountBalance(baseAta);
         if (baseResp.value) {
           setBaseTokenBalanceAtomic(BigInt(baseResp.value.amount));
@@ -89,7 +95,7 @@ export function useHolderAccount(
 
       // 3. Fetch Dividend Token ATA Balance
       try {
-        const dividendAta = getAssociatedTokenAddressSync(DIVIDEND_MINT, publicKey);
+        const dividendAta = getAssociatedTokenAddressSync(ACTIVE_DIVIDEND_MINT, publicKey);
         const divResp = await connection.getTokenAccountBalance(dividendAta);
         if (divResp.value) {
           setDividendTokenBalanceAtomic(BigInt(divResp.value.amount));
@@ -102,7 +108,7 @@ export function useHolderAccount(
 
       // 4. Fetch ClaimRecord PDA
       try {
-        const [claimRecordPda] = getClaimRecordPda(BASE_MINT, publicKey);
+        const [claimRecordPda] = getClaimRecordPda(ACTIVE_BASE_MINT, publicKey);
         const program = getDivvyProgram(connection);
         try {
           const record = await (program.account as any).claimRecord.fetchNullable(claimRecordPda);
@@ -160,7 +166,7 @@ export function useHolderAccount(
     } finally {
       setLoading(false);
     }
-  }, [connection, publicKey]);
+  }, [connection, publicKey, ACTIVE_BASE_MINT, ACTIVE_DIVIDEND_MINT]);
 
   useEffect(() => {
     fetchHolderData();
@@ -182,7 +188,7 @@ export function useHolderAccount(
       claimableDividendAtomic = calculateProRataShare(
         vaultBalanceAtomic,
         baseTokenBalanceAtomic,
-        ELIGIBLE_SUPPLY_ATOMIC
+        eligibleSupplyAtomic
       );
     }
   }
@@ -190,8 +196,8 @@ export function useHolderAccount(
   const canClaim = claimableDividendAtomic > BigInt(0);
   const isClaimed = !!claimRecord && !canClaim;
 
-  const holdingPercentage = Number(ELIGIBLE_SUPPLY_ATOMIC) > 0
-    ? (Number(baseTokenBalanceAtomic) / Number(ELIGIBLE_SUPPLY_ATOMIC)) * 100
+  const holdingPercentage = Number(eligibleSupplyAtomic) > 0
+    ? (Number(baseTokenBalanceAtomic) / Number(eligibleSupplyAtomic)) * 100
     : 0;
 
   return {

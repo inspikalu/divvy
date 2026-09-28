@@ -129,7 +129,7 @@
         {
           "name": "claim_record",
           "docs": [
-            "ClaimRecord PDA — initialized on first claim, preventing double-claims"
+            "ClaimRecord PDA — initialized on first claim, updated on subsequent claims"
           ],
           "writable": true,
           "pda": {
@@ -296,6 +296,73 @@
           "type": "u16"
         }
       ]
+    },
+    {
+      "name": "migrate_config",
+      "docs": [
+        "One-time migration: expands the existing DivvyConfig PDA from the old",
+        "124-byte layout to the new 140-byte layout (adds cumulative_dividend_per_token).",
+        "Uses raw account manipulation to bypass Borsh deserialization of old data."
+      ],
+      "discriminator": [
+        92,
+        131,
+        58,
+        105,
+        210,
+        154,
+        224,
+        193
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "docs": [
+            "Must be the original authority that owns the config"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "config",
+          "docs": [
+            "account has the OLD layout (124 bytes). We verify seeds manually and",
+            "handle raw bytes directly."
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority_base_mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority_base_mint",
+          "docs": [
+            "The base_mint stored in the config — needed to re-derive seeds.",
+            "We read this from raw bytes offset 40 (after discriminator + authority)."
+          ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
     },
     {
       "name": "route_fees",
@@ -499,14 +566,14 @@
           {
             "name": "claimed_amount",
             "docs": [
-              "Amount of dividend quote tokens claimed"
+              "Cumulative dividend quote tokens claimed to date"
             ],
             "type": "u64"
           },
           {
             "name": "claimed_at",
             "docs": [
-              "Unix timestamp of when the claim occurred"
+              "Unix timestamp of the most recent claim"
             ],
             "type": "i64"
           },

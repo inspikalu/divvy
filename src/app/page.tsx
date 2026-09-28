@@ -1,199 +1,389 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import { RefreshCw, HandCoins, Rocket, Waves, ShieldCheck, ArrowRight, ArrowUpRight } from 'lucide-react';
-import { PagePanel } from '@/components/PagePanel';
+import {
+  ArrowRight,
+  TrendingUp,
+  ShieldCheck,
+  Coins,
+  Layers,
+  Sparkles,
+  ExternalLink,
+  CheckCircle2,
+  Lock,
+  ChevronRight,
+} from 'lucide-react';
 import { MetricsCards } from '@/components/MetricsCards';
-import { YourPositionCard } from '@/components/YourPositionCard';
-import { useDivvyProtocol } from '@/hooks/useDivvyProtocol';
-import { useHolderAccount } from '@/hooks/useHolderAccount';
 
-const HOW_IT_WORKS = [
-  {
-    icon: Waves,
-    step: '1 — Trade',
-    title: 'Fees accrue on the DBC pool',
-    description:
-      'Every swap on the Meteora dynamic bonding curve generates trading fees in the quote asset.',
-    href: '/pool',
-    linkLabel: 'See the pool',
-  },
-  {
-    icon: Rocket,
-    step: '2 — Route',
-    title: '60% of creator fees : vault',
-    description:
-      'The creator claims their DBC fees and routes the configured 60% share into the program-owned Dividend Vault.',
-    href: '/create',
-    linkLabel: 'See creator config',
-  },
-  {
-    icon: HandCoins,
-    step: '3 — Claim',
-    title: 'Holders claim pro-rata',
-    description:
-      'Anyone holding the base token claims their share of the vault in one transaction — verified on-chain.',
-    href: '/claim',
-    linkLabel: 'Claim dividends',
-  },
-];
-
-const QUICK_LINKS = [
-  {
-    href: '/claim',
-    icon: HandCoins,
-    title: 'Claim Portal',
-    description: 'Check eligibility and claim your dividend in one transaction.',
-  },
-  {
-    href: '/create',
-    icon: Rocket,
-    title: 'Creator Studio',
-    description: 'View the active config or enable Divvy on a new DBC token.',
-  },
-  {
-    href: '/pool',
-    icon: Waves,
-    title: 'Pool Details',
-    description: 'Token pair, curve configuration, and fee mechanics.',
-  },
-  {
-    href: '/audit',
-    icon: ShieldCheck,
-    title: 'Audit Trail',
-    description: 'Every milestone transaction, explorer-verifiable.',
-  },
-];
-
-export default function HomePage() {
-  const [refreshing, setRefreshing] = useState(false);
-  const metrics = useDivvyProtocol();
-  const holderState = useHolderAccount(
-    metrics.vaultBalanceAtomic,
-    metrics.cumulativeDividendPerToken
-  );
-
-  const handleRefresh = async () => {
-    setRefreshing(true);
-    try {
-      await Promise.all([metrics.refresh(), holderState.refresh()]);
-    } finally {
-      setRefreshing(false);
-    }
-  };
-
+export default function LandingPage() {
   return (
-    <PagePanel
-      title="Protocol Overview"
-      subtitle="All values read directly from Solana devnet — no hardcoded data."
-      action={
-        <button
-          onClick={handleRefresh}
-          disabled={refreshing}
-          className="flex flex-shrink-0 items-center gap-2 rounded-lg border border-surface-border bg-white px-3 py-1.5 text-xs text-slate-500 transition-colors hover:border-brand-300 hover:text-brand-600 disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
-        >
-          <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? 'animate-spin' : ''}`} />
-          Refresh
-        </button>
-      }
-    >
-      <div className="space-y-5">
-        {/* Global metrics — bento, 2 per row */}
-        <MetricsCards metrics={metrics} />
+    <div className="min-h-screen bg-surface-bg text-slate-900 bg-grid-boxes flex flex-col justify-between">
+      {/* Top Navigation Bar */}
+      <header className="sticky top-0 z-40 backdrop-blur-md bg-white/80 border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-lg"
+          >
+            <Image
+              src="/divvy-mod.png"
+              alt="Divvy Logo"
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-lg flex-shrink-0"
+              priority
+            />
+            <div>
+              <span className="font-bold text-base leading-none text-slate-900 tracking-tight flex items-center gap-1.5">
+                Divvy
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-wider bg-brand-50 text-brand-700 border border-brand-200 px-1.5 py-0.5 rounded">
+                  Devnet
+                </span>
+              </span>
+              <span className="block text-[11px] font-mono text-slate-500 mt-0.5">
+                Meteora DBC Dividends
+              </span>
+            </div>
+          </Link>
 
-        {/* Personal position (when wallet connected) */}
-        <YourPositionCard holderState={holderState} />
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600" aria-label="Main landing navigation">
+            <Link
+              href="/app"
+              className="hover:text-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded px-1.5 py-1"
+            >
+              Protocol Overview
+            </Link>
+            <Link
+              href="/app/pool"
+              className="hover:text-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded px-1.5 py-1"
+            >
+              Pools Directory
+            </Link>
+            <Link
+              href="/app/claim"
+              className="hover:text-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded px-1.5 py-1"
+            >
+              Claim Portal
+            </Link>
+            <Link
+              href="/app/create"
+              className="hover:text-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded px-1.5 py-1"
+            >
+              Creator Studio
+            </Link>
+            <Link
+              href="/app/audit"
+              className="hover:text-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded px-1.5 py-1"
+            >
+              Audit Trail
+            </Link>
+          </nav>
 
-        {/* How it works — bento tiles, content left / link right */}
-        <section aria-labelledby="how-it-works-heading">
-          <h2 id="how-it-works-heading" className="text-sm font-semibold text-slate-900">
-            How Divvy works
-          </h2>
-          <div className="mt-2.5 grid grid-cols-1 gap-3 md:grid-cols-2">
-            {HOW_IT_WORKS.map(({ icon: Icon, step, title, description, href, linkLabel }) => (
+          {/* Action CTA */}
+          <div className="flex items-center gap-2.5">
+            <Link
+              href="/app"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-slate-950 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+            >
+              <span>Launch App</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Landing Content */}
+      <main className="flex-1">
+        
+        {/* Hero Section */}
+        <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-6 max-w-6xl mx-auto">
+          <div className="text-center space-y-5 max-w-3xl mx-auto">
+            
+            {/* Pill */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 shadow-xs">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-mono font-medium text-slate-600">
+                Solana Meteora Dynamic Bonding Curve Infrastructure
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-950 tracking-tight leading-[1.1]">
+              Hold the Meme.{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-purple-600">
+                Earn the Stock.
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Divvy automates on-chain dividend distribution for Meteora Dynamic Bonding Curves.
+              Turn speculative trading fee volume into continuous, pro-rata dividend yields for token holders.
+            </p>
+
+            {/* CTAs */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                key={step}
-                href={href}
-                className="group flex items-start justify-between gap-4 rounded-xl border border-surface-border bg-surface-accent p-4 transition-all hover:border-brand-200 hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                href="/app"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
               >
-                {/* Left: content */}
-                <div className="flex items-start gap-3 min-w-0">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                    <Icon className="h-4.5 w-4.5" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
-                        {step}
-                      </span>
-                    </div>
-                    <h3 className="mt-0.5 text-sm font-semibold text-slate-900">{title}</h3>
-                    <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{description}</p>
-                  </div>
-                </div>
-
-                {/* Right: link affordance */}
-                <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-surface-border bg-white text-slate-400 transition-colors group-hover:border-brand-200 group-hover:bg-brand-50 group-hover:text-brand-600">
-                  <ArrowUpRight className="h-3.5 w-3.5" />
-                </div>
+                <span>Enter Divvy App</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
-            ))}
 
-            {/* Filler tile to complete the 2×2 bento */}
-            <div className="flex items-center justify-between gap-4 rounded-xl border border-dashed border-surface-border bg-white/50 p-4">
-              <div className="flex items-start gap-3 min-w-0">
-                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-surface-accent text-slate-400">
-                  <ShieldCheck className="h-4.5 w-4.5" />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold text-slate-700">Everything is verifiable</h3>
-                  <p className="mt-0.5 text-xs leading-relaxed text-slate-500">
-                    Every number on this dashboard links to a real devnet account or transaction.
-                  </p>
-                </div>
+              <Link
+                href="/app/claim"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-xs transition-all hover:bg-slate-50 hover:border-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+              >
+                <span>Holder Claim Portal</span>
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Quick Guarantees */}
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500 font-mono">
+              <span className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                Permissionless Pairings
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                Anchor PDA Vault Security
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                Zero Lockup Requirements
+              </span>
+            </div>
+          </div>
+
+          {/* Live Protocol Telemetry Box Preview */}
+          <div className="mt-12 sm:mt-16">
+            <div className="flex items-center justify-between mb-3 px-1">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                  Live Protocol Telemetry
+                </span>
+                <span className="text-[11px] text-slate-400 block sm:inline sm:ml-2">
+                  Read in real-time from Solana Devnet
+                </span>
               </div>
               <Link
-                href="/audit"
-                className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg border border-surface-border bg-white text-slate-400 transition-colors hover:border-brand-200 hover:bg-brand-50 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
-                aria-label="Open Audit Trail"
+                href="/app/pool"
+                className="text-xs font-semibold text-brand-600 hover:text-brand-700 inline-flex items-center gap-1"
               >
-                <ArrowUpRight className="h-3.5 w-3.5" />
+                <span>View All Pools</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+            <MetricsCards />
+          </div>
+        </section>
+
+        {/* 3-Step Lifecycle Section */}
+        <section className="py-14 border-t border-slate-200 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">
+                How It Works
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+                Automated 3-Step Fee Pipeline
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500">
+                No complex staking contracts. Dividends flow continuously from trading activity straight to holders.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Step 1 */}
+              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-5 flex flex-col justify-between space-y-4">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">
+                      01
+                    </span>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                      Trading Fees Accrue
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Swaps on Meteora DBC
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Traders buy and sell the meme token on Meteora Dynamic Bonding Curves. Every swap generates trading fees denominated in quote assets (e.g. $xSTOCK or $USDC).
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-slate-200">
+                  <Link
+                    href="/app/pool"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700"
+                  >
+                    <span>Inspect live pools</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-5 flex flex-col justify-between space-y-4">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">
+                      02
+                    </span>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                      Fee Share Routing
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Deposited to Vault PDA
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    The token creator claims accumulated DBC fees and executes <code className="font-mono text-[11px] bg-slate-200 px-1 py-0.5 rounded text-slate-800">route_fees</code>, depositing the configured fee share (e.g. 60%) into the program-owned Dividend Vault.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-slate-200">
+                  <Link
+                    href="/app/create"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700"
+                  >
+                    <span>Creator studio</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-5 flex flex-col justify-between space-y-4">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100">
+                      03
+                    </span>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                      Pro-Rata Claim
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Holders Withdraw Yield
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Token holders connect their wallet to claim their exact proportional share of dividends at any time with an automated continuous cumulative index mechanism.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-slate-200">
+                  <Link
+                    href="/app/claim"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700"
+                  >
+                    <span>Claim portal</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Feature Grid / Protocol Guarantees */}
+        <section className="py-14 border-t border-slate-200 max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-2">
+              <Coins className="h-5 w-5 text-brand-600" />
+              <h3 className="font-bold text-sm text-slate-900">Permissionless Tokens</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Any SPL meme token can be paired with any quote dividend asset (xSTOCK, USDC, or SOL).
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-2">
+              <ShieldCheck className="h-5 w-5 text-emerald-600" />
+              <h3 className="font-bold text-sm text-slate-900">Program PDA Security</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                All dividend tokens reside in a program-derived vault address. No central party can drain user yield.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-2">
+              <TrendingUp className="h-5 w-5 text-purple-600" />
+              <h3 className="font-bold text-sm text-slate-900">O(1) Continuous Math</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Scalable cumulative dividend per-token index ensures fast claims without iterating over thousands of holders.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-2">
+              <Layers className="h-5 w-5 text-brand-600" />
+              <h3 className="font-bold text-sm text-slate-900">On-Chain Audit Trail</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Every swap, fee claim, routing deposit, and holder withdrawal is verifiable on Solana Explorer.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom CTA Banner */}
+        <section className="py-12 px-4 sm:px-6 max-w-6xl mx-auto">
+          <div className="rounded-2xl border border-slate-900 bg-slate-950 text-white p-8 sm:p-12 text-center space-y-5">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+              Ready to launch or claim dividends?
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+              Explore live on-chain pools, connect your wallet to claim accrued yields, or launch a new Divvy vault for your token in under 60 seconds.
+            </p>
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href="/app"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-slate-950 shadow-sm transition-all hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+              >
+                <span>Launch App</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/app/create"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-transparent px-6 py-3 text-sm font-bold text-white transition-all hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+              >
+                <span>Create a Vault</span>
+                <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Quick links — bento tiles, 2 per row */}
-        <section aria-labelledby="quick-links-heading">
-          <h2 id="quick-links-heading" className="text-sm font-semibold text-slate-900">
-            Explore
-          </h2>
-          <div className="mt-2.5 grid grid-cols-1 gap-3 md:grid-cols-2">
-            {QUICK_LINKS.map(({ href, icon: Icon, title, description }) => (
-              <Link
-                key={href}
-                href={href}
-                className="group flex items-center justify-between gap-4 rounded-xl border border-surface-border bg-surface-accent p-4 transition-all hover:border-brand-200 hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
-              >
-                {/* Left: content */}
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-100">
-                    <Icon className="h-4.5 w-4.5" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-slate-900">{title}</div>
-                    <p className="mt-0.5 truncate text-xs text-slate-500">{description}</p>
-                  </div>
-                </div>
+      </main>
 
-                {/* Right: arrow */}
-                <ArrowRight className="h-4 w-4 flex-shrink-0 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:text-brand-600" />
-              </Link>
-            ))}
+      {/* Footer */}
+      <footer className="border-t border-slate-200 bg-white py-8 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-900">Divvy Protocol</span>
+            <span>&bull;</span>
+            <span>Meteora Dynamic Bonding Curve Dividends</span>
           </div>
-        </section>
-      </div>
-    </PagePanel>
+
+          <div className="flex items-center gap-4 font-mono text-[11px]">
+            <Link href="/app" className="hover:text-slate-900 transition-colors">
+              App
+            </Link>
+            <Link href="/app/pool" className="hover:text-slate-900 transition-colors">
+              Pools
+            </Link>
+            <Link href="/app/claim" className="hover:text-slate-900 transition-colors">
+              Claim
+            </Link>
+            <Link href="/app/create" className="hover:text-slate-900 transition-colors">
+              Create
+            </Link>
+            <Link href="/app/audit" className="hover:text-slate-900 transition-colors">
+              Audit
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }

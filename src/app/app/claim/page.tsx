@@ -11,7 +11,6 @@ import { useHolderAccount } from '@/hooks/useHolderAccount';
 import { useHolderClaim } from '@/hooks/useHolderClaim';
 import {
   BASE_MINT,
-  DIVIDEND_MINT,
   getExplorerAddressUrl,
   shortenAddress,
   formatCompactNumber,
@@ -342,7 +341,7 @@ function ClaimExecutionSection({ pool }: { pool: RegisteredPool }) {
           </p>
           <div className="pt-1">
             <Link
-              href="/demo"
+              href="/app/demo"
               className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700 transition-colors"
             >
               <span>View Demo Wallets Guide</span>

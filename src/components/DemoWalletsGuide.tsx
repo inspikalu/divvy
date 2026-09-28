@@ -1,102 +1,98 @@
 'use client';
 
 import React from 'react';
-import { ExternalLink, Users, Route } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { getExplorerAddressUrl, TRACKED_WALLETS } from '@/lib/constants';
 
 const DEMO_WALLETS = [
   {
     role: 'Deployer / Creator',
     address: TRACKED_WALLETS.deployer,
-    description: 'Controls protocol config, executes DBC fee claims & routes to vault.',
-    color: 'text-orange-600',
-    border: 'border-orange-200',
-    bg: 'bg-orange-50',
+    description: 'Controls protocol config, executes DBC fee claims & deposits 60% share to vault.',
   },
   {
     role: 'Holder A',
     address: TRACKED_WALLETS.holderA,
-    description: 'Bought 22.74M base tokens. Claimed 418,308 atomic xSTOCK (34.91% share).',
-    color: 'text-brand-600',
-    border: 'border-brand-200',
-    bg: 'bg-brand-50',
+    description: 'Bought 22.74M base tokens. Holds 34.91% share of circulating community tokens.',
   },
   {
     role: 'Holder B',
     address: TRACKED_WALLETS.holderB,
-    description: 'Bought 42.39M base tokens. Claimed 507,521 atomic xSTOCK (65.09% share).',
-    color: 'text-purple-600',
-    border: 'border-purple-200',
-    bg: 'bg-purple-50',
+    description: 'Bought 42.39M base tokens. Holds 65.09% share of circulating community tokens.',
   },
 ];
 
 const DEMO_FLOW = [
-  'Connect the Deployer wallet — review the active config in Creator Studio.',
-  'Generate swaps on the DBC pool so creator fees accrue.',
-  'Deployer claims DBC fees and routes 60% into the Dividend Vault.',
-  'Switch to Holder A or B — check the claimable amount in the Claim Portal.',
-  'Claim — the xSTOCK dividend arrives in one transaction.',
-  'Open the Audit Trail and verify every step in Solana Explorer.',
+  'Connect the Deployer wallet to inspect active configuration in the Creator Studio.',
+  'Generate swaps on the Meteora DBC pool to accrue fresh creator quote fees.',
+  'Deployer claims DBC trading fees and routes the 60% share into the Dividend Vault.',
+  'Switch to Holder A or B to verify automatic pro-rata yield calculation in the Claim Portal.',
+  'Execute a claim. Dividend tokens transfer to the holder wallet in one transaction.',
+  'Open the Audit Trail to verify all block confirmations and transaction hashes on Solana.',
 ];
 
 export function DemoWalletsGuide() {
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-4xl">
       {/* Wallets */}
-      <section aria-labelledby="demo-wallets-heading">
-        <div className="flex items-center gap-2">
-          <Users className="h-4 w-4 text-slate-500" />
-          <h2 id="demo-wallets-heading" className="text-sm font-semibold text-slate-900">
-            Demo Wallets Reference
-          </h2>
-          <span className="rounded-full bg-surface-accent border border-surface-border px-2 py-0.5 text-xs text-slate-500">
-            For judges &amp; testers
-          </span>
+      <section aria-labelledby="demo-wallets-heading" className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <h2 id="demo-wallets-heading" className="text-sm font-bold text-slate-900">
+              Demo Wallets Directory
+            </h2>
+            <span className="font-mono text-[10px] text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded">
+              Test &amp; Evaluation
+            </span>
+          </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {DEMO_WALLETS.map(w => (
-            <div key={w.address} className={`rounded-2xl border ${w.border} ${w.bg} p-5 space-y-2`}>
-              <div className={`text-xs font-bold uppercase tracking-widest ${w.color}`}>
-                {w.role}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {DEMO_WALLETS.map((w) => (
+            <div key={w.address} className="rounded-xl border border-slate-200 bg-white p-4 space-y-2 flex flex-col justify-between">
+              <div>
+                <span className="text-xs font-bold text-slate-900 block">
+                  {w.role}
+                </span>
+                <p className="mt-1 text-xs text-slate-500 leading-relaxed">
+                  {w.description}
+                </p>
               </div>
-              <a
-                href={getExplorerAddressUrl(w.address)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 rounded text-xs font-mono text-slate-600 transition-colors hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 break-all"
-              >
-                {w.address}
-                <ExternalLink className="h-3 w-3 flex-shrink-0" />
-              </a>
-              <p className="text-xs text-slate-500">{w.description}</p>
+
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <a
+                  href={getExplorerAddressUrl(w.address)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[11px] text-brand-600 hover:underline inline-flex items-center gap-1"
+                >
+                  {w.address.slice(0, 6)}...{w.address.slice(-6)}
+                  <ExternalLink className="h-2.5 w-2.5" />
+                </a>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Suggested demo flow */}
-      <section aria-labelledby="demo-flow-heading" className="max-w-3xl">
-        <div className="flex items-center gap-2">
-          <Route className="h-4 w-4 text-slate-500" />
-          <h2 id="demo-flow-heading" className="text-sm font-semibold text-slate-900">
-            Suggested demo flow
-          </h2>
+      <section aria-labelledby="demo-flow-heading" className="space-y-3">
+        <h2 id="demo-flow-heading" className="text-sm font-bold text-slate-900">
+          Suggested Testing Sequence
+        </h2>
+
+        <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div className="divide-y divide-slate-100 text-xs">
+            {DEMO_FLOW.map((step, i) => (
+              <div key={step} className="p-3.5 flex items-start gap-3 hover:bg-slate-50/50 transition-colors">
+                <span className="font-mono text-xs font-bold text-slate-400 w-5 flex-shrink-0 pt-0.5">
+                  0{i + 1}.
+                </span>
+                <p className="text-slate-600 leading-relaxed">{step}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <ol className="mt-3 space-y-2">
-          {DEMO_FLOW.map((step, i) => (
-            <li
-              key={step}
-              className="flex items-start gap-3 rounded-xl border border-surface-border bg-surface-accent p-4"
-            >
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">
-                {i + 1}
-              </span>
-              <p className="text-sm text-slate-600">{step}</p>
-            </li>
-          ))}
-        </ol>
       </section>
     </div>
   );

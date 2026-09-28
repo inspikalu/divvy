@@ -26,13 +26,14 @@ the tooling around it.
 
 | Choice | Version | Why |
 |---|---|---|
-| Next.js | `14.2.x` | App Router, stable, and every wallet-adapter example on the internet targets it. |
-| React | `18.3.x` | Pinned by Next 14.2.x. |
-| TypeScript | `5.4.x` | Matches Next 14.2.x's tested range. |
-| `@solana/web3.js` | `1.95.x` | The 2.x rewrite has a different API surface and far fewer copy-pasteable examples. Not worth it under this deadline. |
-| `@solana/wallet-adapter-react` + `-react-ui` + `-wallets` | `0.15.x` / `0.9.x` / `0.19.x` | Default wallet modal out of the box. Do not hand-roll wallet connection. |
-| Tailwind CSS | `3.4.x` | Styling speed. Not v4 — the config format changed and we have no time to debug it. |
-| Node.js | `20.x` LTS | Required floor for Next 14. |
+| Next.js | `15.3.x` | App Router, upgraded to latest stable release with React 18 compatibility. |
+| React | `18.3.x` | React 18.3.1 runtime. |
+| TypeScript | `5.4.x` | Matches tested range. |
+| `@solana/web3.js` | `1.95.x` | The 1.95.x standard library with Anchor provider compatibility. |
+| `@solana/wallet-adapter-react` + Wallet Standard | `0.15.x` | Pure Solana Wallet Standard auto-discovery for Phantom, Solflare, Backpack. |
+| `sonner` | `^2.0.x` | Beautiful, lightweight toast notification system matching Divvy theme (replaces inline alert banners). |
+| Tailwind CSS | `3.4.x` | Styling with custom pastel brand tokens. |
+| Node.js | `20.x` LTS | Runtime floor. |
 
 ## Data / Indexing
 
@@ -76,6 +77,8 @@ Recorded so these are not re-litigated mid-build.
 ## Change Log
 - [2026-09-15] Phase 0/Group 1: aligned toolchain versions (Anchor CLI `0.32.1`, Agave CLI `3.1.x`, `spl-token 5.5.0`, Rust `1.94.x`) to match environment.
 - [2026-09-15] Phase 0: pinned `@meteora-ag/dynamic-bonding-curve-sdk` to `1.5.12` and confirmed Meteora DBC Program ID `dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN` is executable on devnet — confirmed by ground-truth RPC query.
+- [2026-09-24] Phase 4/5: added `migrate_config` instruction and upgraded Divvy on-chain program on devnet (`235zHTTdjPraGrpvLaULGZN3nnVrDvzqw31zHyw3PXG5`) with 140-byte realloc migration.
+- [2026-09-24] Phase 5: added `sonner` for themed toasts, replacing inline error and success banners across claim workflows.
 
 Every mid-build addition or change to the stack gets recorded here before it is used.
 Format: `- [YYYY-MM-DD] Phase/Group: [what changed] — [why] — confirmed by [who].`

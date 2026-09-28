@@ -47,3 +47,36 @@ export function formatTokenAmount(atomicUnits: number | bigint | string, decimal
     maximumFractionDigits: 6,
   });
 }
+
+/**
+ * Formats numbers into compact K / M / B abbreviations (e.g. 65,131,823.75 -> "65.13M", 100,000 -> "100K")
+ */
+export function formatCompactNumber(amount: number | bigint | string, decimals = 2): string {
+  const num = typeof amount === 'bigint' ? Number(amount) : Number(amount);
+  if (isNaN(num)) return '0';
+  const abs = Math.abs(num);
+
+  if (abs >= 1_000_000_000) {
+    return (num / 1_000_000_000).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: decimals,
+    }) + 'B';
+  }
+  if (abs >= 1_000_000) {
+    return (num / 1_000_000).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: decimals,
+    }) + 'M';
+  }
+  if (abs >= 1_000) {
+    return (num / 1_000).toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: decimals,
+    }) + 'K';
+  }
+
+  return num.toLocaleString('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: decimals,
+  });
+}

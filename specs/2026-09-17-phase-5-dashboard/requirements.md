@@ -44,7 +44,8 @@
    - Real-time on-chain `ClaimRecord` PDA check (`[b"claim", base_mint, holder]`) with `last_claimed_index`.
    - Continuous yield calculation: `(holder_balance * (global_index - last_claimed_index)) / 10^12` with fallback to pro-rata share.
    - Displays previous claimed total, current newly claimable amount, timestamp, and transaction proof.
-   - Interactive "Claim Dividend" transaction flow: builds Anchor `claim` instruction, prompts wallet signature, sends to devnet via RPC, awaits confirmation, displays confirmation toast with Solana Explorer link, and updates UI balances in real time. Holders can claim repeatedly whenever new fees accrue.
+   - Interactive "Claim Dividend" transaction flow: builds Anchor `claim` instruction, prompts wallet signature, sends to devnet via RPC, awaits confirmation.
+   - Replaced inline error/success blocks with Sonner toast system styled to match the Divvy pastel purple theme (multi-stage progress, clear user-friendly error formatting, action buttons linking to Solana Explorer). Holders can claim repeatedly whenever new fees accrue.
 
 4. **Creator Enable & Configuration Panel (US-1):**
    - Creator overview of active Divvy pool configuration and fee split rules.

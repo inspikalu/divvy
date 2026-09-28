@@ -73,6 +73,36 @@ export function calculateProRataShare(
   return (vb * hb) / es;
 }
 
+export const TOKEN_METADATA_PROGRAM_ID = new PublicKey(
+  'metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'
+);
+
+export async function getTokenMetadata(
+  connection: Connection,
+  mint: PublicKey
+): Promise<{ name: string; symbol: string } | null> {
+  try {
+    const [pda] = PublicKey.findProgramAddressSync(
+      [Buffer.from('metadata'), TOKEN_METADATA_PROGRAM_ID.toBuffer(), mint.toBuffer()],
+      TOKEN_METADATA_PROGRAM_ID
+    );
+    const info = await connection.getAccountInfo(pda);
+    if (!info || !info.data) return null;
+    const buf = info.data;
+    let offset = 1 + 32 + 32;
+    const nameLen = buf.readUInt32LE(offset);
+    offset += 4;
+    const name = buf.subarray(offset, offset + nameLen).toString('utf-8').replace(/\0/g, '').trim();
+    offset += nameLen;
+    const symbolLen = buf.readUInt32LE(offset);
+    offset += 4;
+    const symbol = buf.subarray(offset, offset + symbolLen).toString('utf-8').replace(/\0/g, '').trim();
+    return { name, symbol };
+  } catch {
+    return null;
+  }
+}
+
 export function getDivvyProgram(
   connection: Connection,
   wallet?: any

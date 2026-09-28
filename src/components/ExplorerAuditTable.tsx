@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ExternalLink, CheckCircle, Link2, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, CheckCircle } from 'lucide-react';
 import { getExplorerAddressUrl, getExplorerTxUrl, shortenAddress } from '@/lib/constants';
 
 type EntryType = 'tx' | 'account';
@@ -44,21 +44,21 @@ const AUDIT_ENTRIES: AuditEntry[] = [
     phase: 'Phase 1',
   },
   {
-    label: 'Swap — Holder A Buy',
+    label: 'Swap: Holder A Buy',
     type: 'tx',
     value: '3eSdSRdr55GRLixUsSGAeNSgQ5rCYYv4HRNr8C7s2W3u8P5bys5GkqNsvgyCMF1W9rxUvDUZcqpZ67zc87u8DaaR',
     description: 'Holder A bought 22.74M base tokens with 100 xSTOCK',
     phase: 'Phase 1',
   },
   {
-    label: 'Swap — Holder B Buy',
+    label: 'Swap: Holder B Buy',
     type: 'tx',
     value: '3AsZTiitihEBTA2JsKAPTgWmZCUyDuuAmQbHq5sBjQSwLT2BDxqUcsS2mPNZ8jZ5AjethaedaZGACyJtbdMJuCbU',
     description: 'Holder B bought 42.39M base tokens with 150 xSTOCK',
     phase: 'Phase 1',
   },
   {
-    label: 'Swap — Holder A Sell',
+    label: 'Swap: Holder A Sell',
     type: 'tx',
     value: '4mYB7mD46qGKTyFk6q6ZbV9KAmTVfjmRHZDVBWc7zirGLgmC82rbXAtCbf1r2EzVEiGkHQDispLZciU1gTaX9xGc',
     description: 'Holder A sold 7.58B base tokens (fee generation)',
@@ -94,76 +94,97 @@ const AUDIT_ENTRIES: AuditEntry[] = [
   },
 ];
 
-const PHASE_COLORS: Record<string, string> = {
-  'Phase 1': 'bg-sky-50 text-sky-700 border-sky-200',
-  'Phase 2': 'bg-brand-50 text-brand-700 border-brand-200',
-  'Phase 3': 'bg-orange-50 text-orange-700 border-orange-200',
-  'Phase 4': 'bg-purple-50 text-purple-700 border-purple-200',
-};
-
-const PHASE_ORDER: Record<string, number> = { 'All': 0, 'Phase 1': 1, 'Phase 2': 2, 'Phase 3': 3, 'Phase 4': 4 };
-
 export function ExplorerAuditTable() {
-  const [filter, setFilter] = useState<string>('All');
-  const phases = ['All', 'Phase 1', 'Phase 2', 'Phase 3', 'Phase 4'];
-  const filtered = filter === 'All'
-    ? AUDIT_ENTRIES
-    : [...AUDIT_ENTRIES].sort((a, b) => (PHASE_ORDER[a.phase] ?? 0) - (PHASE_ORDER[b.phase] ?? 0));
+  const [filter, setFilter] = useState<'all' | 'tx' | 'account'>('all');
+
+  const filtered = AUDIT_ENTRIES.filter((e) => {
+    if (filter === 'all') return true;
+    return e.type === filter;
+  });
 
   return (
-    <div className="rounded-xl border border-surface-border bg-white p-5 shadow-card">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="space-y-4 max-w-4xl">
+      {/* Controls */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <Link2 className="h-4.5 w-4.5 text-brand-600" />
-          <h2 className="text-sm font-semibold text-slate-900">On-Chain Audit Trail</h2>
-          <span className="rounded-full bg-brand-50 border border-brand-200 px-2 py-0.5 text-xs text-brand-700">
-            {AUDIT_ENTRIES.length} entries
-          </span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          {phases.map(p => (
+          {(['all', 'tx', 'account'] as const).map((tab) => (
             <button
-              key={p}
-              onClick={() => setFilter(p)}
-              className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 ${filter === p ? 'bg-brand-600 text-white' : 'bg-surface-accent text-slate-500 border border-surface-border hover:text-slate-900'}`}
+              key={tab}
+              onClick={() => setFilter(tab)}
+              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 ${
+                filter === tab
+                  ? 'bg-slate-900 text-white'
+                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+              }`}
             >
-              {p}
+              {tab === 'all'
+                ? `All (${AUDIT_ENTRIES.length})`
+                : tab === 'tx'
+                ? `Transactions (${AUDIT_ENTRIES.filter((e) => e.type === 'tx').length})`
+                : `Accounts (${AUDIT_ENTRIES.filter((e) => e.type === 'account').length})`}
             </button>
           ))}
         </div>
+
+        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-500">
+          <CheckCircle className="h-3.5 w-3.5 text-emerald-600" />
+          <span>11 of 11 verified on devnet</span>
+        </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-2.5">
-        {filtered.map((entry, i) => (
-          <div
-            key={i}
-            className="flex items-start gap-3 rounded-xl border border-surface-border bg-surface-accent p-3.5 transition-colors hover:border-brand-200"
-          >
-            <CheckCircle className="h-3.5 w-3.5 flex-shrink-0 text-brand-500" />
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-sm font-medium text-slate-900">{entry.label}</span>
-                <span className={`shrink-0 rounded-full border px-1.5 py-0.5 text-[10px] font-semibold ${PHASE_COLORS[entry.phase] || 'bg-surface-accent text-slate-500 border-surface-border'}`}>
-                  {entry.phase}
-                </span>
+      {/* Audit Data Table */}
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+        <div className="hidden sm:grid grid-cols-12 gap-3 px-4 py-2.5 bg-slate-50/70 border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-slate-500 font-mono">
+          <div className="col-span-3">Event / Account</div>
+          <div className="col-span-2">Phase &amp; Type</div>
+          <div className="col-span-4">Description</div>
+          <div className="col-span-3 text-right">On-Chain Explorer</div>
+        </div>
+
+        <div className="divide-y divide-slate-100 text-xs">
+          {filtered.map((entry) => {
+            const url =
+              entry.type === 'tx'
+                ? getExplorerTxUrl(entry.value)
+                : getExplorerAddressUrl(entry.value);
+
+            return (
+              <div
+                key={entry.value}
+                className="p-4 sm:px-4 sm:py-3.5 grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-3 items-center hover:bg-slate-50/50 transition-colors"
+              >
+                <div className="sm:col-span-3 font-semibold text-slate-900">
+                  {entry.label}
+                </div>
+
+                <div className="sm:col-span-2 flex items-center gap-1.5">
+                  <span className="font-mono text-[10px] text-slate-600 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded">
+                    {entry.phase}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase text-slate-400">
+                    {entry.type}
+                  </span>
+                </div>
+
+                <div className="sm:col-span-4 text-slate-500 text-xs leading-relaxed">
+                  {entry.description}
+                </div>
+
+                <div className="sm:col-span-3 sm:text-right pt-1 sm:pt-0">
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 font-mono text-xs text-brand-600 hover:text-brand-700 font-medium"
+                  >
+                    <span>{shortenAddress(entry.value, 4)}</span>
+                    <ExternalLink className="h-2.5 w-2.5" />
+                  </a>
+                </div>
               </div>
-              <p className="mt-0.5 text-xs text-slate-500">{entry.description}</p>
-              <div className="mt-1.5 text-[10px] font-mono text-slate-400">
-                {shortenAddress(entry.value, 5)}
-              </div>
-            </div>
-            <a
-              href={entry.type === 'tx' ? getExplorerTxUrl(entry.value) : getExplorerAddressUrl(entry.value)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-shrink-0 items-center gap-1.5 rounded-lg border border-surface-border bg-white px-2.5 py-1.5 text-xs text-slate-500 transition-colors hover:border-brand-200 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
-            >
-              {entry.type === 'tx' ? 'Tx' : 'Acct'}
-              <ExternalLink className="h-2.5 w-2.5" />
-              <ArrowUpRight className="h-3 w-3" />
-            </a>
-          </div>
-        ))}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

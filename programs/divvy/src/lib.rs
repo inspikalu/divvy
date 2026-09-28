@@ -30,4 +30,11 @@ pub mod divvy {
     pub fn claim(ctx: Context<Claim>, eligible_supply: u64) -> Result<()> {
         handle_claim(ctx, eligible_supply)
     }
+
+    /// One-time migration: expands the existing DivvyConfig PDA from the old
+    /// 124-byte layout to the new 140-byte layout (adds cumulative_dividend_per_token).
+    /// Uses raw account manipulation to bypass Borsh deserialization of old data.
+    pub fn migrate_config(ctx: Context<MigrateConfig>) -> Result<()> {
+        handle_migrate_config(ctx)
+    }
 }
