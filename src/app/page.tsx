@@ -5,18 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
-  TrendingUp,
-  ShieldCheck,
-  Coins,
-  Layers,
   ChevronRight,
   Calculator,
-  Lock,
-  Check,
-  ArrowUpRight,
-  FileSearch,
-  HandCoins,
-  Rocket,
 } from 'lucide-react';
 import { InteractiveAppPreview } from '@/components/InteractiveAppPreview';
 import { MetricsCards } from '@/components/MetricsCards';
@@ -420,10 +410,9 @@ export default function SliteEditorialLandingPage() {
                 <div className="pt-2">
                   <Link
                     href="/app/audit"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] transition-colors"
+                    className="inline-flex items-center text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] underline-offset-4 hover:underline transition-colors"
                   >
                     <span>Inspect on-chain audit trail</span>
-                    <FileSearch className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
@@ -457,10 +446,9 @@ export default function SliteEditorialLandingPage() {
                 <div className="pt-2">
                   <Link
                     href="/app/claim"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] transition-colors"
+                    className="inline-flex items-center text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] underline-offset-4 hover:underline transition-colors"
                   >
                     <span>Test live claim portal</span>
-                    <HandCoins className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
@@ -528,9 +516,8 @@ export default function SliteEditorialLandingPage() {
               </Link>
               <Link
                 href="/app/create"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#C4B5FD] hover:text-white underline-offset-4 hover:underline transition-colors"
+                className="text-sm font-medium text-[#C4B5FD] hover:text-white underline-offset-4 hover:underline transition-colors"
               >
-                <Rocket className="h-3.5 w-3.5" />
                 <span>or configure a creator vault</span>
               </Link>
             </div>
