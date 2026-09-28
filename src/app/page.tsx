@@ -11,6 +11,9 @@ import {
   Layers,
   ChevronRight,
   Calculator,
+  Lock,
+  Check,
+  ArrowUpRight,
 } from 'lucide-react';
 import { InteractiveAppPreview } from '@/components/InteractiveAppPreview';
 import { MetricsCards } from '@/components/MetricsCards';
@@ -324,68 +327,148 @@ export default function SliteEditorialLandingPage() {
           </div>
         </section>
 
-        {/* 6. Core Pillars */}
-        <section className="py-16 border-t border-black/[0.06] bg-[#F5F2EB]/40">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+        {/* 6. Human-Crafted Architecture Section (Asymmetrical, Real Artifacts, No Generic Pills) */}
+        <section className="py-20 border-t border-black/[0.06] bg-[#FAF8F5]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
             
-            <div className="text-center max-w-xl mx-auto space-y-2">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
-                Core Protocol Guarantees
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-                Engineered for trustless distribution
-              </h2>
+            {/* Left-Aligned Header + Beside Paragraph (Breaking AI Symmetry) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
+              <div className="lg:col-span-7 space-y-2 text-left">
+                <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#7C3AED]">
+                  01 &mdash; Architecture &amp; Settlement
+                </span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-[#231B2A] tracking-tight leading-tight">
+                  Your dividends never touch our wallet.
+                </h2>
+              </div>
+              <div className="lg:col-span-5 text-left">
+                <p className="text-[15px] sm:text-base text-[#524959] leading-relaxed">
+                  Divvy replaces centralized fee management with immutable Solana smart contracts. Trading fees accumulate automatically and stream directly to token holders.
+                </p>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
+            {/* Asymmetrical Feature Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
               
-              {/* Pillar 1 */}
-              <div className="rounded-3xl border border-black/[0.08] bg-white p-6 space-y-3 shadow-xs">
-                <div className="h-10 w-10 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 font-bold">
-                  <Coins className="h-5 w-5" />
+              {/* Feature 1: Large Dominant Block (Lavender Background + Real PDA Vault Artifact) */}
+              <div className="lg:col-span-7 rounded-2xl border border-[#E5DBF5] bg-[#F5F0FC] p-6 sm:p-8 flex flex-col justify-between space-y-6 text-left shadow-[0_4px_20px_-8px_rgba(124,58,237,0.12)]">
+                <div className="space-y-3">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#FEF3C7] border border-[#FDE68A] text-[#92400E] text-xs font-bold font-mono">
+                    <Lock className="h-3 w-3" />
+                    <span>Non-Custodial PDA</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#231B2A] tracking-tight">
+                    Funds sit in a vault only the program can move.
+                  </h3>
+                  <p className="text-[15px] text-[#524959] leading-relaxed">
+                    All dividend funds reside in a program-derived token account owned strictly by the Solana Anchor program. No deployer, creator, or intermediary can access or redirect community yield.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-slate-900">Permissionless Token Pairings</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Pair any Meteora DBC meme token with any SPL quote asset. Distribute tokenized stocks ($xSTOCK), stablecoins ($USDC), or native $SOL directly to community holders.
-                </p>
+
+                {/* Real Product Artifact: On-Chain Vault Inspector */}
+                <div className="rounded-xl border border-[#DCD0F0] bg-white p-4 font-mono text-xs space-y-2.5 shadow-xs">
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-2 text-[11px] text-slate-400">
+                    <span className="font-bold text-slate-700">ON-CHAIN VAULT ACCOUNT</span>
+                    <span className="text-emerald-700 font-bold flex items-center gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Solana Devnet
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-[11px]">
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Vault PDA</span>
+                      <span className="text-slate-800 font-bold">7xKp…3fQa</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Program Authority</span>
+                      <span className="text-slate-800 font-bold">divvy_program</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Quote Asset</span>
+                      <span className="text-purple-700 font-bold">$xSTOCK (Tessera)</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 block text-[10px]">Deployer Admin Role</span>
+                      <span className="text-emerald-700 font-bold">None (Immutable)</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="pt-2">
-                  <Link href="/app/create" className="text-xs font-bold text-purple-600 hover:text-purple-700 inline-flex items-center gap-1">
-                    <span>Creator Studio</span>
-                    <ChevronRight className="h-3 w-3" />
+                  <Link
+                    href="/app/audit"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] transition-colors"
+                  >
+                    <span>Inspect on-chain audit trail</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
 
-              {/* Pillar 2 */}
-              <div className="rounded-3xl border border-black/[0.08] bg-white p-6 space-y-3 shadow-xs">
-                <div className="h-10 w-10 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 font-bold">
-                  <ShieldCheck className="h-5 w-5" />
+              {/* Feature 2: Clean Companion Card (Index Math Artifact) */}
+              <div className="lg:col-span-5 rounded-2xl border border-black/[0.08] bg-white p-6 sm:p-8 flex flex-col justify-between space-y-6 text-left">
+                <div className="space-y-3">
+                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+                    Scalable Computation
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#231B2A] tracking-tight">
+                    Claiming costs the same for 10 holders or 10,000.
+                  </h3>
+                  <p className="text-[15px] text-[#524959] leading-relaxed">
+                    Divvy avoids looping through holder accounts. Using a continuous cumulative index with 10<sup>12</sup> scaling precision, claims settle in constant O(1) time without gas spikes.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-slate-900">Anchor PDA Non-Custodial Vaults</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  All dividend funds reside in a program-derived token account owned strictly by the Solana Anchor program. No deployer or intermediary can access or redirect community yield.
-                </p>
+
+                {/* Real Product Artifact: Index Math Code Snippet */}
+                <div className="rounded-xl border border-slate-200 bg-[#FAF8F5] p-3.5 font-mono text-[11px] text-slate-700 space-y-1.5">
+                  <div className="text-[10px] text-slate-400 font-bold">GLOBAL ACCUMULATOR MATH</div>
+                  <div className="text-purple-900 font-semibold truncate">
+                    reward_per_token += fee_delta * 1e12 / supply
+                  </div>
+                  <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-200/60">
+                    <span>Compute Cost: 4,200 CU</span>
+                    <span className="text-emerald-600 font-bold">~0.000005 SOL</span>
+                  </div>
+                </div>
+
                 <div className="pt-2">
-                  <Link href="/app/audit" className="text-xs font-bold text-purple-600 hover:text-purple-700 inline-flex items-center gap-1">
-                    <span>Inspect Audit Trail</span>
-                    <ChevronRight className="h-3 w-3" />
+                  <Link
+                    href="/app/claim"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] transition-colors"
+                  >
+                    <span>Test live claim portal</span>
+                    <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
 
-              {/* Pillar 3 */}
-              <div className="rounded-3xl border border-black/[0.08] bg-white p-6 space-y-3 shadow-xs">
-                <div className="h-10 w-10 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 font-bold">
-                  <TrendingUp className="h-5 w-5" />
+              {/* Feature 3: Full-Width Row / Pairings (Hairline Divided) */}
+              <div className="lg:col-span-12 rounded-2xl border border-black/[0.08] bg-white p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-left">
+                <div className="space-y-1.5 max-w-2xl">
+                  <span className="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400">
+                    Asset Flexibility
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-extrabold text-[#231B2A] tracking-tight">
+                    Pair any meme with real tokenized equity or stablecoins.
+                  </h3>
+                  <p className="text-[15px] text-[#524959] leading-relaxed">
+                    Distribute tokenized pre-IPO stocks ($xSTOCK), yield-bearing assets, stablecoins ($USDC), or native $SOL straight from Meteora Dynamic Bonding Curves.
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-slate-900">Continuous $O(1)$ Math</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Using a global cumulative index per base token, claims require single-instruction transactions. No expensive account loops, lockups, or gas spikes as holder counts scale.
-                </p>
-                <div className="pt-2">
-                  <Link href="/app/claim" className="text-xs font-bold text-purple-600 hover:text-purple-700 inline-flex items-center gap-1">
-                    <span>Claim Portal</span>
-                    <ChevronRight className="h-3 w-3" />
+
+                {/* Real Artifact: Live Active Pair Capsule */}
+                <div className="flex-shrink-0 flex items-center gap-3 p-3 rounded-xl bg-[#FAF8F5] border border-slate-200">
+                  <div className="text-right">
+                    <span className="text-[10px] font-mono text-slate-400 block">Active Devnet Pair</span>
+                    <span className="font-bold text-xs text-slate-900">$POPCAT / $xSTOCK</span>
+                  </div>
+                  <div className="h-7 w-[1px] bg-slate-200" />
+                  <Link
+                    href="/app/create"
+                    className="px-4 py-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold transition-all"
+                  >
+                    Configure Pair &rarr;
                   </Link>
                 </div>
               </div>
@@ -395,32 +478,28 @@ export default function SliteEditorialLandingPage() {
           </div>
         </section>
 
-        {/* 7. Bottom Callout Banner */}
-        <section className="py-16 px-4 sm:px-6 max-w-5xl mx-auto">
-          <div className="rounded-3xl border border-slate-900 bg-slate-950 text-white p-8 sm:p-12 text-center space-y-6 shadow-md">
-            <span className="text-xs font-mono font-semibold uppercase tracking-wider text-purple-300 bg-purple-950 border border-purple-800 px-3 py-1 rounded-full">
-              Get Started on Solana Devnet
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-              Start streaming real dividends today.
+        {/* 7. Redesigned Human CTA Section (Deep Plum Block, No Badges, Natural Flow) */}
+        <section className="py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+          <div className="rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-8 sm:p-14 text-center space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-2xl mx-auto leading-tight">
+              Try it on devnet in five minutes.
             </h2>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
-              Explore active on-chain vaults, test the holder claim portal with funded demo wallets, or launch Divvy on your own token in minutes.
+            <p className="text-base sm:text-lg text-[#D6C8E8] max-w-xl mx-auto leading-relaxed font-normal">
+              Explore live on-chain vaults, test the holder claim portal with funded demo wallets, or launch fee-sharing on your own token.
             </p>
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-5">
               <Link
                 href="/app"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#7C3AED] px-6 py-3 text-xs font-bold text-white shadow-sm hover:bg-[#6D28D9] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#7C3AED] px-8 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-[#6D28D9] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
               >
                 <span>Enter Divvy App</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/app/create"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-bold text-white hover:bg-white/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                className="text-sm font-medium text-[#C4B5FD] hover:text-white underline-offset-4 hover:underline transition-colors"
               >
-                <span>Launch a Vault</span>
-                <ChevronRight className="h-4 w-4" />
+                or configure a creator vault &rarr;
               </Link>
             </div>
           </div>
