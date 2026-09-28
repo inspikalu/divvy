@@ -10,37 +10,25 @@ import {
   Waves,
   ShieldCheck,
   CheckCircle2,
-  ExternalLink,
-  Sparkles,
-  ArrowRight,
-  RefreshCw,
-  Coins,
   Check,
-  Zap,
+  Sparkles,
 } from 'lucide-react';
 
 export function InteractiveAppPreview() {
   // 0 = Creator Studio Flow, 1 = Creator Initialized Success, 2 = Claim Portal Flow, 3 = Claim Settled Success
   const [phase, setPhase] = useState(0);
-  const [cursorPos, setCursorPos] = useState({ x: 45, y: 75, clicking: false });
+  const [cursorPos, setCursorPos] = useState({ x: 50, y: 70, clicking: false });
 
   useEffect(() => {
     // 16-second total looping sequence:
-    // 0s-3.5s: Creator filling inputs, cursor moving to "Initialize Vault"
-    // 3.5s-4.5s: Cursor clicks "Initialize Vault"
-    // 4.5s-8s: Creator Vault Initialized state (Vault PDA created AhWYbZ...)
-    // 8s-11.5s: Switches to Holder Claim Portal, cursor moves to "Claim Dividends"
-    // 11.5s-12.5s: Cursor clicks "Claim Dividends"
-    // 12.5s-16s: Claim Success Settled (418.30 $xSTOCK transferred), then loops back to 0
-
     const t1 = setTimeout(() => {
       // Move cursor to Creator Init button
-      setCursorPos({ x: 55, y: 82, clicking: false });
+      setCursorPos({ x: 62, y: 73, clicking: false });
     }, 1500);
 
     const t2 = setTimeout(() => {
       // Cursor clicks
-      setCursorPos({ x: 55, y: 82, clicking: true });
+      setCursorPos({ x: 62, y: 73, clicking: true });
     }, 3200);
 
     const t3 = setTimeout(() => {
@@ -52,29 +40,29 @@ export function InteractiveAppPreview() {
     const t4 = setTimeout(() => {
       // Phase 2: Switch to Claim Portal
       setPhase(2);
-      setCursorPos({ x: 30, y: 60, clicking: false });
+      setCursorPos({ x: 30, y: 55, clicking: false });
     }, 7500);
 
     const t5 = setTimeout(() => {
       // Move cursor to Claim button
-      setCursorPos({ x: 68, y: 48, clicking: false });
+      setCursorPos({ x: 62, y: 62, clicking: false });
     }, 9500);
 
     const t6 = setTimeout(() => {
       // Click Claim button
-      setCursorPos({ x: 68, y: 48, clicking: true });
+      setCursorPos({ x: 62, y: 62, clicking: true });
     }, 11200);
 
     const t7 = setTimeout(() => {
       // Phase 3: Claim Success Settled
       setPhase(3);
-      setCursorPos({ x: 85, y: 80, clicking: false });
+      setCursorPos({ x: 80, y: 75, clicking: false });
     }, 11800);
 
     const t8 = setTimeout(() => {
       // Reset loop back to Phase 0
       setPhase(0);
-      setCursorPos({ x: 45, y: 75, clicking: false });
+      setCursorPos({ x: 50, y: 70, clicking: false });
     }, 15800);
 
     return () => {
@@ -87,18 +75,18 @@ export function InteractiveAppPreview() {
       clearTimeout(t7);
       clearTimeout(t8);
     };
-  }, [phase === 0 ? 0 : null]); // Re-trigger loop when phase returns to 0
+  }, [phase === 0 ? 0 : null]);
 
   const isCreatorView = phase === 0 || phase === 1;
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto select-none">
+    <div className="relative w-full max-w-4xl mx-auto pb-12 select-none">
       
       {/* Main Realistic App Window */}
-      <div className="relative rounded-3xl border border-black/[0.08] bg-white shadow-[0_16px_50px_-16px_rgba(0,0,0,0.12)] overflow-hidden text-left font-sans">
+      <div className="relative rounded-3xl border border-black/[0.08] bg-white shadow-[0_16px_50px_-16px_rgba(0,0,0,0.12)] text-left font-sans">
         
         {/* App Shell Mockup Header */}
-        <div className="px-5 py-3.5 border-b border-slate-100 bg-[#FAF8F5]/80 flex items-center justify-between">
+        <div className="px-5 py-3.5 border-b border-slate-100 bg-[#FAF8F5]/80 rounded-t-3xl flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
@@ -123,10 +111,10 @@ export function InteractiveAppPreview() {
         </div>
 
         {/* Realistic Dashboard Split: Sidebar + Active Panel */}
-        <div className="grid grid-cols-12 min-h-[420px]">
+        <div className="grid grid-cols-12 min-h-[440px]">
           
           {/* Real App Sidebar (3 cols) */}
-          <div className="hidden sm:block col-span-3 border-r border-slate-100 bg-[#FAF8F5]/40 p-3.5 space-y-4">
+          <div className="hidden sm:block col-span-3 border-r border-slate-100 bg-[#FAF8F5]/40 p-3.5 space-y-4 rounded-bl-3xl">
             
             {/* Brand item */}
             <div className="flex items-center gap-2 px-2 py-1.5 rounded-lg bg-white border border-slate-200 shadow-xs">
@@ -190,7 +178,7 @@ export function InteractiveAppPreview() {
           </div>
 
           {/* Main Dashboard Content View (9 cols) */}
-          <div className="col-span-12 sm:col-span-9 p-5 sm:p-6 bg-white flex flex-col justify-between">
+          <div className="col-span-12 sm:col-span-9 p-5 sm:p-6 bg-white rounded-br-3xl flex flex-col justify-between">
             
             {/* VIEW A: Creator Studio (/app/create) */}
             {isCreatorView ? (
@@ -381,62 +369,62 @@ export function InteractiveAppPreview() {
           </div>
         </div>
 
-        {/* 4. Floating Phase Status Card at Bottom Center (Matching Slite Screenshot Ref) */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto min-w-[320px]">
-          <div className="rounded-2xl border-2 border-orange-400/90 bg-white/95 backdrop-blur-md p-3.5 shadow-[0_8px_30px_-6px_rgba(249,115,22,0.25)] space-y-1.5 font-sans text-xs">
-            
-            {/* Step 1 Item */}
-            <div
-              className={`flex items-center justify-between gap-3 px-2 py-1 rounded-lg transition-all ${
-                phase === 0
-                  ? 'bg-orange-50 font-bold text-orange-950 border border-orange-200'
-                  : phase > 0
-                  ? 'text-slate-700 font-medium'
-                  : 'text-slate-400'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className={`h-2 w-2 rounded-full ${phase === 0 ? 'bg-orange-500 animate-pulse' : 'bg-emerald-500'}`} />
-                <span>1. Creator configures $POPCAT / $xSTOCK pair</span>
-              </div>
-              {phase > 0 && <Check className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />}
-            </div>
+      </div>
 
-            {/* Step 2 Item */}
-            <div
-              className={`flex items-center justify-between gap-3 px-2 py-1 rounded-lg transition-all ${
-                phase === 1
-                  ? 'bg-orange-50 font-bold text-orange-950 border border-orange-200'
-                  : phase > 1
-                  ? 'text-slate-700 font-medium'
-                  : 'text-slate-400'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className={`h-2 w-2 rounded-full ${phase === 1 ? 'bg-orange-500 animate-pulse' : phase > 1 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-                <span>2. 60% DBC trade fee share routed to Vault PDA</span>
-              </div>
-              {phase > 1 && <Check className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />}
+      {/* 4. Floating Phase Status Card at Bottom Center (Shifted Lower to Hang Over Border) */}
+      <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto min-w-[340px]">
+        <div className="rounded-2xl border-2 border-orange-400/90 bg-white/95 backdrop-blur-md p-3.5 shadow-[0_12px_36px_-6px_rgba(249,115,22,0.28)] space-y-1.5 font-sans text-xs">
+          
+          {/* Step 1 Item */}
+          <div
+            className={`flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-lg transition-all ${
+              phase === 0
+                ? 'bg-orange-50 font-bold text-orange-950 border border-orange-200 shadow-xs'
+                : phase > 0
+                ? 'text-slate-700 font-medium'
+                : 'text-slate-400'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className={`h-2 w-2 rounded-full ${phase === 0 ? 'bg-orange-500 animate-pulse' : 'bg-emerald-500'}`} />
+              <span>1. Creator configures $POPCAT / $xSTOCK pair</span>
             </div>
-
-            {/* Step 3 Item */}
-            <div
-              className={`flex items-center justify-between gap-3 px-2 py-1 rounded-lg transition-all ${
-                phase >= 2
-                  ? 'bg-orange-50 font-bold text-orange-950 border border-orange-200'
-                  : 'text-slate-400'
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className={`h-2 w-2 rounded-full ${phase === 2 ? 'bg-orange-500 animate-pulse' : phase === 3 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-                <span>3. Holder claims 418,308 $xSTOCK pro-rata</span>
-              </div>
-              {phase === 3 && <Check className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />}
-            </div>
-
+            {phase > 0 && <Check className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />}
           </div>
-        </div>
 
+          {/* Step 2 Item */}
+          <div
+            className={`flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-lg transition-all ${
+              phase === 1
+                ? 'bg-orange-50 font-bold text-orange-950 border border-orange-200 shadow-xs'
+                : phase > 1
+                ? 'text-slate-700 font-medium'
+                : 'text-slate-400'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className={`h-2 w-2 rounded-full ${phase === 1 ? 'bg-orange-500 animate-pulse' : phase > 1 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+              <span>2. 60% DBC trade fee share routed to Vault PDA</span>
+            </div>
+            {phase > 1 && <Check className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />}
+          </div>
+
+          {/* Step 3 Item */}
+          <div
+            className={`flex items-center justify-between gap-3 px-2.5 py-1.5 rounded-lg transition-all ${
+              phase >= 2
+                ? 'bg-orange-50 font-bold text-orange-950 border border-orange-200 shadow-xs'
+                : 'text-slate-400'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className={`h-2 w-2 rounded-full ${phase === 2 ? 'bg-orange-500 animate-pulse' : phase === 3 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+              <span>3. Holder claims 418,308 $xSTOCK pro-rata</span>
+            </div>
+            {phase === 3 && <Check className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />}
+          </div>
+
+        </div>
       </div>
 
     </div>
