@@ -14,6 +14,9 @@ import {
   Lock,
   Check,
   ArrowUpRight,
+  FileSearch,
+  HandCoins,
+  Rocket,
 } from 'lucide-react';
 import { InteractiveAppPreview } from '@/components/InteractiveAppPreview';
 import { MetricsCards } from '@/components/MetricsCards';
@@ -335,7 +338,7 @@ export default function SliteEditorialLandingPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-end">
               <div className="lg:col-span-7 space-y-2 text-left">
                 <span className="text-xs font-mono font-semibold uppercase tracking-widest text-[#7C3AED]">
-                  01 &mdash; Architecture &amp; Settlement
+                  Architecture &amp; Settlement
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-[#231B2A] tracking-tight leading-tight">
                   Your dividends never touch our wallet.
@@ -354,10 +357,6 @@ export default function SliteEditorialLandingPage() {
               {/* Feature 1: Large Dominant Block (Lavender Background + Real PDA Vault Artifact) */}
               <div className="lg:col-span-7 rounded-2xl border border-[#E5DBF5] bg-[#F5F0FC] p-6 sm:p-8 flex flex-col justify-between space-y-6 text-left shadow-[0_4px_20px_-8px_rgba(124,58,237,0.12)]">
                 <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#FEF3C7] border border-[#FDE68A] text-[#92400E] text-xs font-bold font-mono">
-                    <Lock className="h-3 w-3" />
-                    <span>Non-Custodial PDA</span>
-                  </div>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-[#231B2A] tracking-tight">
                     Funds sit in a vault only the program can move.
                   </h3>
@@ -401,7 +400,7 @@ export default function SliteEditorialLandingPage() {
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] transition-colors"
                   >
                     <span>Inspect on-chain audit trail</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" />
+                    <FileSearch className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
@@ -438,7 +437,7 @@ export default function SliteEditorialLandingPage() {
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6D28D9] hover:text-[#5B21B6] transition-colors"
                   >
                     <span>Test live claim portal</span>
-                    <ArrowUpRight className="h-3.5 w-3.5" />
+                    <HandCoins className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
@@ -466,9 +465,10 @@ export default function SliteEditorialLandingPage() {
                   <div className="h-7 w-[1px] bg-slate-200" />
                   <Link
                     href="/app/create"
-                    className="px-4 py-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold transition-all"
+                    className="px-4 py-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-xs font-bold transition-all inline-flex items-center gap-1.5"
                   >
-                    Configure Pair &rarr;
+                    Configure Pair
+                    <ChevronRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
               </div>
@@ -497,9 +497,10 @@ export default function SliteEditorialLandingPage() {
               </Link>
               <Link
                 href="/app/create"
-                className="text-sm font-medium text-[#C4B5FD] hover:text-white underline-offset-4 hover:underline transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#C4B5FD] hover:text-white underline-offset-4 hover:underline transition-colors"
               >
-                or configure a creator vault &rarr;
+                <Rocket className="h-3.5 w-3.5" />
+                <span>or configure a creator vault</span>
               </Link>
             </div>
           </div>

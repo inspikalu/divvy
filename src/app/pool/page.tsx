@@ -1,18 +1,5 @@
-'use client';
+import { redirect } from 'next/navigation';
 
-import React from 'react';
-import { PagePanel } from '@/components/PagePanel';
-import { PoolOverview } from '@/components/PoolOverview';
-
-export default function PoolPage() {
-  return (
-    <PagePanel
-      title="Pools Directory & Details"
-      subtitle="Explore and inspect all Meteora Dynamic Bonding Curve pools integrated with Divvy dividend routing."
-    >
-      <div className="max-w-4xl">
-        <PoolOverview />
-      </div>
-    </PagePanel>
-  );
+export default function PoolRedirect() {
+  redirect('/app/pool');
 }
