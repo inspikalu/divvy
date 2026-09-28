@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { InteractiveAppPreview } from '@/components/InteractiveAppPreview';
 import { MetricsCards } from '@/components/MetricsCards';
+import { PoweredBy } from '@/components/PoweredBy';
 
 export default function SliteEditorialLandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -174,8 +175,11 @@ export default function SliteEditorialLandingPage() {
 
         </section>
 
-        {/* 4. Live Protocol Telemetry Stats */}
-        <section className="py-12 border-y border-black/[0.06] bg-[#F5F2EB]/50">
+        {/* 4. Powered By / Ecosystem Integration Strip (Slite Screenshot Style) */}
+        <PoweredBy />
+
+        {/* 5. Live Protocol Telemetry Stats */}
+        <section className="py-12 border-b border-black/[0.06] bg-[#F5F2EB]/50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-3">
             <div className="flex items-center justify-between px-1">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500">
