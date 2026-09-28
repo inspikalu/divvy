@@ -37,6 +37,7 @@ yarn-error.log*
 # Video recordings and artifacts
 videos/
 recordings/
+docs/
 *.mp4
 *.mov
 *.webm
