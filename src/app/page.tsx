@@ -355,7 +355,7 @@ export default function SliteEditorialLandingPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
               
               {/* Feature 1: Large Dominant Block (Lavender Background + Real PDA Vault Artifact) */}
-              <div className="lg:col-span-7 rounded-2xl border border-[#E5DBF5] bg-[#F5F0FC] p-6 sm:p-8 flex flex-col justify-between space-y-6 text-left shadow-[0_4px_20px_-8px_rgba(124,58,237,0.12)]">
+              <div className="grain relative lg:col-span-7 rounded-2xl border border-[#E5DBF5] bg-[#F5F0FC] p-6 sm:p-8 flex flex-col justify-between space-y-6 text-left shadow-[0_4px_20px_-8px_rgba(124,58,237,0.12)]">
                 <div className="space-y-3">
                   <h3 className="text-xl sm:text-2xl font-extrabold text-[#231B2A] tracking-tight">
                     Funds sit in a vault only the program can move.
@@ -480,7 +480,7 @@ export default function SliteEditorialLandingPage() {
 
         {/* 7. Redesigned Human CTA Section (Deep Plum Block, No Badges, Natural Flow) */}
         <section className="py-20 px-4 sm:px-6 max-w-5xl mx-auto">
-          <div className="rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-8 sm:p-14 text-center space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
+          <div className="grain-dark relative rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-8 sm:p-14 text-center space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-2xl mx-auto leading-tight">
               Try it on devnet in five minutes.
             </h2>

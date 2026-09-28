@@ -83,7 +83,7 @@ export function InteractiveAppPreview() {
     <div className="relative w-full max-w-4xl mx-auto pb-12 select-none">
       
       {/* Main Realistic App Window */}
-      <div className="relative rounded-3xl border border-black/[0.08] bg-white shadow-[0_16px_50px_-16px_rgba(0,0,0,0.12)] text-left font-sans">
+      <div className="grain relative rounded-3xl border border-black/[0.08] bg-white shadow-[0_16px_50px_-16px_rgba(0,0,0,0.12)] text-left font-sans overflow-hidden">
         
         {/* App Shell Mockup Header */}
         <div className="px-5 py-3.5 border-b border-slate-100 bg-[#FAF8F5]/80 rounded-t-3xl flex items-center justify-between">
