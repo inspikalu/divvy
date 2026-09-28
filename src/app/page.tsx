@@ -47,8 +47,8 @@ export default function SliteEditorialLandingPage() {
       <header
         className={`sticky top-0 z-50 transition-all duration-200 ${
           isScrolled
-            ? 'bg-[#FBF9F5]/90 backdrop-blur-md border-b border-black/[0.06] shadow-xs py-3.5 px-6 sm:px-10'
-            : 'bg-transparent border-b-0 py-6 px-6 sm:px-10'
+            ? 'bg-[#FBF9F5]/90 backdrop-blur-md border-b border-black/[0.06] shadow-xs py-3.5 px-4 sm:px-10'
+            : 'bg-transparent border-b-0 py-4 sm:py-6 px-4 sm:px-10'
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -118,14 +118,15 @@ export default function SliteEditorialLandingPage() {
 
       {/* 2. Slite-Style Hero Section */}
       <main className="flex-1">
-        <section className="pt-10 sm:pt-16 pb-16 px-4 sm:px-6 max-w-5xl mx-auto text-center space-y-8">
+        <section className="pt-8 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 max-w-5xl mx-auto text-center space-y-6 sm:space-y-8">
           
           {/* Main Display Headline with Organic Brush-Like Oval Sketch around "Verified" / "Real dividends" */}
           <div className="space-y-4 max-w-3xl mx-auto">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#1A1A1A] leading-[1.08]">
+            <h1 className="text-3xl xs:text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#1A1A1A] leading-[1.1] sm:leading-[1.08]">
               Hold your favorite meme.
-              <br />
-              <span className="relative inline-block isolate">
+              <br className="hidden xs:inline" />
+              {' '}
+              <span className="relative inline-block isolate mt-1 xs:mt-0">
                 {/* Slite-Style Authentic Hand-Drawn Brush Oval Sketch SVG */}
                 <svg
                   className="absolute -top-[22%] -left-[14%] w-[128%] h-[150%] pointer-events-none select-none text-[#E8DCCF] -z-10"
@@ -200,8 +201,8 @@ export default function SliteEditorialLandingPage() {
         </section>
 
         {/* 5. Interactive Yield Simulator */}
-        <section className="py-16 px-4 sm:px-6 max-w-5xl mx-auto">
-          <div className="rounded-3xl border border-black/[0.08] bg-white p-6 sm:p-10 shadow-xs space-y-8">
+        <section className="py-12 sm:py-16 px-4 sm:px-6 max-w-5xl mx-auto">
+          <div className="rounded-3xl border border-black/[0.08] bg-white p-5 sm:p-10 shadow-xs space-y-6 sm:space-y-8">
             
             <div className="max-w-xl space-y-1.5 text-left">
               <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">
@@ -479,8 +480,8 @@ export default function SliteEditorialLandingPage() {
                 </div>
 
                 {/* Real Artifact: Live Active Pair Capsule */}
-                <div className="flex-shrink-0 flex items-center gap-3 p-3 rounded-xl bg-[#FAF8F5] border border-slate-200">
-                  <div className="text-right">
+                <div className="w-full sm:w-auto flex-shrink-0 flex items-center justify-between sm:justify-start gap-3 p-3 rounded-xl bg-[#FAF8F5] border border-slate-200">
+                  <div className="text-left sm:text-right">
                     <span className="text-[10px] font-mono text-slate-400 block">Active Devnet Pair</span>
                     <span className="font-bold text-xs text-slate-900">$POPCAT / $xSTOCK</span>
                   </div>
@@ -501,8 +502,8 @@ export default function SliteEditorialLandingPage() {
         </section>
 
         {/* 7. Redesigned Human CTA Section (Deep Plum Block, No Badges, Natural Flow) */}
-        <section className="py-20 px-4 sm:px-6 max-w-5xl mx-auto">
-          <div className="grain-dark-soft relative rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-8 sm:p-14 text-center space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
+        <section className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+          <div className="grain-dark-soft relative rounded-2xl border border-[#3C2458] bg-[#231435] text-white p-6 sm:p-14 text-center space-y-5 sm:space-y-6 shadow-[0_20px_50px_-20px_rgba(35,20,53,0.4)]">
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-2xl mx-auto leading-tight">
               Try it on devnet in{' '}
               <span className="relative inline-block whitespace-nowrap">

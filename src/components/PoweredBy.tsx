@@ -115,23 +115,23 @@ export function PoweredBy() {
   ];
 
   return (
-    <section className="py-12 border-b border-black/[0.06] bg-[#FAF8F5]/60 select-none">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center space-y-8">
+    <section className="py-10 sm:py-12 border-b border-black/[0.06] bg-[#FAF8F5]/60 select-none overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center space-y-6 sm:space-y-8">
         
         {/* Subtle Editorial Header with decorative scatter dots */}
-        <div className="relative inline-flex items-center gap-3 mx-auto">
+        <div className="relative inline-flex items-center justify-center gap-2 sm:gap-3 mx-auto max-w-full">
           {/* Left scatter dots */}
-          <svg className="flex-shrink-0 text-[#7C3AED]" width="28" height="8" viewBox="0 0 28 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="hidden sm:block flex-shrink-0 text-[#7C3AED]" width="28" height="8" viewBox="0 0 28 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="3" cy="4" r="2" fill="currentColor" fillOpacity="0.5"/>
             <circle cx="11" cy="4" r="1.5" fill="currentColor" fillOpacity="0.3"/>
             <circle cx="18" cy="4" r="1" fill="currentColor" fillOpacity="0.2"/>
             <circle cx="24" cy="4" r="0.75" fill="currentColor" fillOpacity="0.12"/>
           </svg>
-          <p className="text-xs sm:text-sm font-medium text-[#736E66] tracking-tight whitespace-nowrap">
+          <p className="text-xs sm:text-sm font-medium text-[#736E66] tracking-tight text-center leading-relaxed">
             Built on Solana&apos;s most liquid DeFi and tokenized asset infrastructure.
           </p>
           {/* Right scatter dots (mirrored) */}
-          <svg className="flex-shrink-0 text-[#7C3AED] scale-x-[-1]" width="28" height="8" viewBox="0 0 28 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className="hidden sm:block flex-shrink-0 text-[#7C3AED] scale-x-[-1]" width="28" height="8" viewBox="0 0 28 8" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="3" cy="4" r="2" fill="currentColor" fillOpacity="0.5"/>
             <circle cx="11" cy="4" r="1.5" fill="currentColor" fillOpacity="0.3"/>
             <circle cx="18" cy="4" r="1" fill="currentColor" fillOpacity="0.2"/>
@@ -140,11 +140,13 @@ export function PoweredBy() {
         </div>
 
         {/* Partner Logos Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 items-start justify-center">
-          {partners.map((partner) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 items-start justify-center">
+          {partners.map((partner, idx) => (
             <div
               key={partner.name}
-              className="group flex flex-col items-center justify-center space-y-2.5 text-center p-2 rounded-xl transition-all hover:bg-white/60"
+              className={`group flex flex-col items-center justify-center space-y-2 text-center p-2 rounded-xl transition-all hover:bg-white/60 ${
+                idx === 4 ? 'col-span-2 sm:col-span-1' : ''
+              }`}
             >
               {/* Logo Mark */}
               <div className="h-7 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity">

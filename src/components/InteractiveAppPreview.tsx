@@ -202,9 +202,9 @@ export function InteractiveAppPreview() {
                     <label className="block text-[11px] font-semibold text-slate-600 mb-1">
                       Meteora DBC Base Token Mint
                     </label>
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs text-slate-800 flex items-center justify-between">
-                      <span>3pX9emk345wevCj8wYuDHPnhtEV5NKuFwSbUCCuQFgP4</span>
-                      <span className="font-bold text-purple-700 bg-purple-100/60 px-1.5 py-0.5 rounded text-[10px]">$POPCAT</span>
+                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs text-slate-800 flex items-center justify-between gap-2">
+                      <span className="truncate">3pX9emk345wevCj8wYuDHPnhtEV5NKuFwSbUCCuQFgP4</span>
+                      <span className="font-bold text-purple-700 bg-purple-100/60 px-1.5 py-0.5 rounded text-[10px] flex-shrink-0">$POPCAT</span>
                     </div>
                   </div>
 
@@ -212,18 +212,18 @@ export function InteractiveAppPreview() {
                     <label className="block text-[11px] font-semibold text-slate-600 mb-1">
                       Dividend Quote Asset (e.g. $xSTOCK, $USDC, $SOL)
                     </label>
-                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs text-slate-800 flex items-center justify-between">
-                      <span>A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM</span>
-                      <span className="font-bold text-purple-700 bg-purple-100/60 px-1.5 py-0.5 rounded text-[10px]">$xSTOCK</span>
+                    <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 font-mono text-xs text-slate-800 flex items-center justify-between gap-2">
+                      <span className="truncate">A3cQgqcyNvfQ48jWCFNtT5etur1Tk9tZHLgBSnKDGFWM</span>
+                      <span className="font-bold text-purple-700 bg-purple-100/60 px-1.5 py-0.5 rounded text-[10px] flex-shrink-0">$xSTOCK</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between p-3 rounded-xl bg-purple-50/60 border border-purple-200/80">
+                  <div className="flex flex-col xs:flex-row xs:items-center justify-between p-3 rounded-xl bg-purple-50/60 border border-purple-200/80 gap-2">
                     <div>
                       <span className="text-xs font-bold text-slate-900 block">Holder Fee Share Allocation</span>
                       <span className="text-[10px] text-slate-500">Meteora DBC trade fee share streamed to community</span>
                     </div>
-                    <span className="font-mono text-sm font-extrabold text-purple-800 bg-white px-2.5 py-1 rounded-lg border border-purple-200 shadow-xs">
+                    <span className="font-mono text-xs sm:text-sm font-extrabold text-purple-800 bg-white px-2.5 py-1 rounded-lg border border-purple-200 shadow-xs self-start xs:self-auto flex-shrink-0">
                       60.00% (6,000 BPS)
                     </span>
                   </div>
@@ -372,8 +372,8 @@ export function InteractiveAppPreview() {
       </div>
 
       {/* 4. Floating Phase Status Card at Bottom Center (Shifted Lower to Hang Over Border) */}
-      <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 z-20 w-[92%] sm:w-auto min-w-[340px]">
-        <div className="rounded-2xl border-2 border-orange-400/90 bg-white/95 backdrop-blur-md p-3.5 shadow-[0_12px_36px_-6px_rgba(249,115,22,0.28)] space-y-1.5 font-sans text-xs">
+      <div className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 z-20 w-[94%] sm:w-auto sm:min-w-[340px] max-w-[calc(100%-16px)]">
+        <div className="rounded-2xl border-2 border-orange-400/90 bg-white/95 backdrop-blur-md p-2.5 sm:p-3.5 shadow-[0_12px_36px_-6px_rgba(249,115,22,0.28)] space-y-1.5 font-sans text-xs">
           
           {/* Step 1 Item */}
           <div
