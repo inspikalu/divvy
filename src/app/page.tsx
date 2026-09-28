@@ -109,6 +109,8 @@ export default function SliteEditorialLandingPage() {
           {/* Main Display Headline with Organic Brush-Like Oval Sketch around "Verified" / "Real dividends" */}
           <div className="space-y-4 max-w-3xl mx-auto">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#1A1A1A] leading-[1.08]">
+              Hold your favorite meme.
+              <br />
               <span className="relative inline-block isolate">
                 {/* Slite-Style Authentic Hand-Drawn Brush Oval Sketch SVG */}
                 <svg
@@ -137,16 +139,13 @@ export default function SliteEditorialLandingPage() {
                     strokeOpacity="0.5"
                   />
                 </svg>
-                <span className="relative">Verified</span>
+                <span className="relative">Get paid</span>
               </span>
-              {' '}dividends,
-              <br />
-              kept in sync with volume.
+              {' '}every time it trades.
             </h1>
 
             <p className="text-base sm:text-lg text-[#55524E] max-w-2xl mx-auto leading-relaxed font-normal pt-2">
-              The on-chain dividend routing protocol for Meteora Dynamic Bonding Curves.
-              Turn speculative trading volume into continuous, pro-rata quote asset income for token holders.
+              Every swap on Meteora routes trading fees straight into a shared pot for holders. Connect your wallet and withdraw your share anytime.
             </p>
           </div>
 
