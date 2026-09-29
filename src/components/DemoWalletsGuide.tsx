@@ -33,7 +33,7 @@ const DEMO_FLOW = [
 
 export function DemoWalletsGuide() {
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       {/* Wallets */}
       <section aria-labelledby="demo-wallets-heading" className="space-y-3">
         <div className="flex items-center justify-between">

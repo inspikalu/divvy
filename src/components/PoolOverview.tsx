@@ -198,7 +198,7 @@ export function PoolOverview() {
   }, [pools, selectedPoolMint]);
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       {/* Top Pool Directory Header */}
       <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">

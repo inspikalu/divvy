@@ -304,7 +304,7 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
   }, [fetchMyPairs]);
 
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-6">
       {/* Sub-Navigation Tabs */}
       <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl border border-slate-200">
         <button

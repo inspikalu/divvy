@@ -10,9 +10,7 @@ export default function PoolPage() {
       title="Pools Directory & Details"
       subtitle="Explore and inspect all Meteora Dynamic Bonding Curve pools integrated with Divvy dividend routing."
     >
-      <div className="max-w-4xl">
-        <PoolOverview />
-      </div>
+      <PoolOverview />
     </PagePanel>
   );
 }
