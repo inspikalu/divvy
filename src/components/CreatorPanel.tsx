@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useConnection } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
+import { PublicKey, Transaction } from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
 import { toast } from 'sonner';
 import {
@@ -169,7 +169,7 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
       toast.loading('Building initialization transaction…', { id: toastId });
       const program = getDivvyProgram(connection);
 
-      const tx = await program.methods
+      const ix = await program.methods
         .initializeConfig(newFeeShareBps)
         .accounts({
           authority: publicKey,
@@ -181,7 +181,9 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
           systemProgram: new PublicKey('11111111111111111111111111111111'),
           tokenProgram: TOKEN_PROGRAM_ID,
         } as any)
-        .transaction();
+        .instruction();
+
+      const tx = new Transaction().add(ix);
 
       toast.loading('Awaiting wallet approval…', { id: toastId });
       const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash('confirmed');
