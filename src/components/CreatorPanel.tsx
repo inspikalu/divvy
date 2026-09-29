@@ -18,10 +18,52 @@ import {
   getExplorerTxUrl,
   shortenAddress,
 } from '@/lib/constants';
-import { getDivvyProgram } from '@/lib/anchor';
+import {
+  getDivvyProgram,
+  getConfigPda,
+  getVaultPda,
+  getVaultAuthorityPda,
+} from '@/lib/anchor';
 
 interface CreatorPanelProps {
   metrics: ProtocolMetrics;
+}
+
+/** Parse Solana, Anchor, or RPC error into a clear actionable message */
+function parseInitError(err: any): string {
+  const msg: string = err?.message ?? '';
+  const logs: string[] = err?.logs ?? err?.transactionMessage?.logs ?? [];
+  const combined = (msg + ' ' + logs.join(' ')).toLowerCase();
+
+  if (combined.includes('user rejected') || combined.includes('rejected the request') || combined.includes('user cancelled')) {
+    return 'Transaction was cancelled in your wallet.';
+  }
+  if (combined.includes('already in use') || combined.includes('custom program error: 0x0') || combined.includes('0x0')) {
+    return 'This token pair has already been initialized on Divvy. You can view its pool in the Pool Directory.';
+  }
+  if (combined.includes('accountnotinitialized') || combined.includes('accountdidnotdeserialize') || combined.includes('3012')) {
+    return 'One of the provided token mint addresses does not exist on Solana Devnet or is not an SPL Mint.';
+  }
+  if (combined.includes('insufficient funds') || combined.includes('insufficient lamports') || combined.includes('0x1')) {
+    return 'Your wallet has insufficient Devnet SOL to pay for transaction fees and rent exemption.';
+  }
+  if (combined.includes('invalidfeeshare') || combined.includes('6001')) {
+    return 'Fee share must be between 0.01% and 100% (1 - 10,000 BPS).';
+  }
+  if (combined.includes('blockhash') || combined.includes('block height exceeded')) {
+    return 'Transaction expired. Please try again.';
+  }
+  if (combined.includes('timeout')) {
+    return 'Network timeout communicating with Solana Devnet RPC. Please retry.';
+  }
+
+  // If logs contain a specific Program log failure:
+  const failedLog = logs.find((l) => l.includes('Error:') || l.includes('failed:'));
+  if (failedLog) {
+    return failedLog.replace('Program log: ', '').trim();
+  }
+
+  return msg.length > 140 ? msg.slice(0, 137) + '...' : msg || 'Unexpected error occurred. Check browser console for full logs.';
 }
 
 export function CreatorPanel({ metrics }: CreatorPanelProps) {
@@ -57,7 +99,7 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
       baseMintPk = new PublicKey(newBaseMint.trim());
     } catch {
       toast.error('Invalid Base Mint', {
-        description: 'Please enter a valid Solana public key for the base token.',
+        description: 'Please enter a valid Solana public key for the base token mint.',
       });
       return;
     }
@@ -66,14 +108,65 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
       dividendMintPk = new PublicKey(newDividendMint.trim());
     } catch {
       toast.error('Invalid Dividend Mint', {
-        description: 'Please enter a valid Solana public key for the dividend token.',
+        description: 'Please enter a valid Solana public key for the dividend token mint.',
       });
       return;
     }
 
-    const toastId = toast.loading('Building initialization transaction…');
+    const toastId = toast.loading('Verifying token accounts on Devnet…');
     try {
       setInitLoading(true);
+
+      // Preflight Check 1: Verify SOL Balance
+      const balanceLamports = await connection.getBalance(publicKey, 'confirmed');
+      if (balanceLamports < 5_000_000) { // < 0.005 SOL
+        toast.error('Low SOL Balance', {
+          id: toastId,
+          description: 'You need at least ~0.005 Devnet SOL in your wallet to cover account rent and transaction fees.',
+        });
+        setInitLoading(false);
+        return;
+      }
+
+      // Preflight Check 2: Derive PDAs
+      const [configPda] = getConfigPda(baseMintPk);
+      const [vaultPda] = getVaultPda(baseMintPk);
+      const [vaultAuthorityPda] = getVaultAuthorityPda(baseMintPk);
+
+      // Preflight Check 3: Verify if Config PDA already exists
+      const existingConfig = await connection.getAccountInfo(configPda);
+      if (existingConfig !== null) {
+        toast.error('Pair Already Initialized', {
+          id: toastId,
+          description: `Divvy is already initialized for base token ${shortenAddress(baseMintPk, 4)}. You can view its pool in the Pool Directory.`,
+        });
+        setInitLoading(false);
+        return;
+      }
+
+      // Preflight Check 4: Verify Base Mint exists on-chain
+      const baseMintAccount = await connection.getAccountInfo(baseMintPk);
+      if (!baseMintAccount) {
+        toast.error('Base Mint Not Found', {
+          id: toastId,
+          description: `Base mint ${shortenAddress(baseMintPk, 4)} was not found on Solana Devnet. Please ensure it is a valid initialized SPL Mint.`,
+        });
+        setInitLoading(false);
+        return;
+      }
+
+      // Preflight Check 5: Verify Dividend Mint exists on-chain
+      const divMintAccount = await connection.getAccountInfo(dividendMintPk);
+      if (!divMintAccount) {
+        toast.error('Dividend Mint Not Found', {
+          id: toastId,
+          description: `Dividend mint ${shortenAddress(dividendMintPk, 4)} was not found on Solana Devnet. Please ensure it is a valid initialized SPL Mint.`,
+        });
+        setInitLoading(false);
+        return;
+      }
+
+      toast.loading('Building initialization transaction…', { id: toastId });
       const program = getDivvyProgram(connection);
 
       const tx = await program.methods
@@ -82,6 +175,9 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
           authority: publicKey,
           baseMint: baseMintPk,
           dividendMint: dividendMintPk,
+          config: configPda,
+          dividendVault: vaultPda,
+          vaultAuthority: vaultAuthorityPda,
           systemProgram: new PublicKey('11111111111111111111111111111111'),
           tokenProgram: TOKEN_PROGRAM_ID,
         } as any)
@@ -114,9 +210,10 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
       await metrics.refresh();
     } catch (err: any) {
       console.error('initialize_config error:', err);
+      const friendlyMessage = parseInitError(err);
       toast.error('Initialization Failed', {
         id: toastId,
-        description: err?.message || 'Transaction was rejected or failed.',
+        description: friendlyMessage,
       });
     } finally {
       setInitLoading(false);
@@ -128,7 +225,7 @@ export function CreatorPanel({ metrics }: CreatorPanelProps) {
     setNewDividendMint(DIVIDEND_MINT.toBase58());
     setNewFeeShareBps(6000);
     toast.info('Loaded demo token pair', {
-      description: 'Filled with $POPCAT and $xSTOCK addresses.',
+      description: 'Loaded $POPCAT and $xSTOCK. (Note: This showcase pair is already active on Devnet)',
     });
   };
 
